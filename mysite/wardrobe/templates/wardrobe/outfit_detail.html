@@ -1,0 +1,59 @@
+{% extends 'core/header.html' %}
+
+{% block title %}{{ outfit.name }}{% endblock %}
+
+{% block content %}
+
+<!--Outfit_form-->
+<div class="container py-5">
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+
+            <!-- <h1>{{ outfit.name }}</h1> -->
+            <h1 class="display-4">{{ outfit.name }}</h1>
+
+            <figure class="figure">
+                <!-- <img src="{{ outfit.image.url }}" class="figure-img img-fluid rounded" style="max-height:600px;"> -->
+                <img src="{{ outfit.image.url }}" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">{{ outfit.description }}</figcaption>
+            </figure>
+            
+            <!-- <p>{{ outfit.description }}</p> -->
+            <br>
+
+            <a class="btn btn-secondary" href="{% url 'wardrobe:wardrobe' %}" role="button">Back</a>
+            <a class="btn btn-primary" href="{% url 'wardrobe:outfit_edit' outfit.id %}" role="button">Edit</a>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#outfitDeleteModal">
+                Delete
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="outfitDeleteModal" tabindex="-1" aria-labelledby="outfitDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="outfitDeleteModalLabel">Delete Outfit</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this item?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="{% url 'wardrobe:outfit_delete' outfit_id=outfit.id %}" method="POST">
+                                {% csrf_token %}
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

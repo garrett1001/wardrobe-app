@@ -1,0 +1,75 @@
+{% extends 'core/header.html' %}
+
+{% block title %}Wardrobe{% endblock %}
+
+{% block content %} 
+
+<!--Wardrobe-->
+<div class="container py-5">
+    <h1 class="display-1">Wardrobe</h1>
+    <hr>
+
+    <h1>Outfits</h1>
+    <a class="btn btn-primary" href="{% url 'wardrobe:outfit_create' %}" role="button">Create</a>
+
+    <div class="container py-4">
+        {% if latest_outfit_list %}
+            <div id="outfitCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for outfit in latest_outfit_list %}
+                        {% if forloop.first %}
+                            <div class="carousel-item active">
+                        {% else %}
+                            <div class="carousel-item">
+                        {% endif %}
+                                <img src="{{ outfit.image.url }}" class="d-block w-100" alt="Outfit">
+                                <a class="text-decoration-none text-reset" href="{% url 'wardrobe:outfit_detail' outfit.id %}">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{{ outfit.name }}</h5>
+                                        <p>{{ outfit.description }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#outfitCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#outfitCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        {% else %}
+            <p>No outfits created.</p>
+        {% endif %}
+    </div>
+
+    <h1>Garments</h1>
+    <a class="btn btn-primary" href="{% url 'wardrobe:garment_upload' %}" role="button">Add</a>
+
+    <div class="container py-4">
+        {% if latest_garment_list %}
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+            {% for garment in latest_garment_list %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <p>No garments added.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

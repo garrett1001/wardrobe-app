@@ -1,0 +1,14 @@
+{% extends 'core/header.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %} 
+
+<!--Homepage-->
+<div class="container py-5">
+    <h1 class="display-1">Home</h1>
+    <hr>
+    <a class="btn btn-primary" href="{% url 'wardrobe:wardrobe' %}">Wardrobe</a>
+</div>
+
+{% endblock %}

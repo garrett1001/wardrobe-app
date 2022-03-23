@@ -1,0 +1,21 @@
+{% extends 'core/header.html' %}
+
+{% block title %}Edit Outfit{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<!--Outfit_form-->
+<div class="container py-5">
+    <h1 class="display-1">Edit Outfit</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <a class="btn btn-secondary" href="{% url 'wardrobe:outfit_detail' outfit_id %}" role="button">Back</a>
+        <button class="btn btn-primary" type="submit">Upload</button>
+    </form>
+</div>
+
+{% endblock %}
