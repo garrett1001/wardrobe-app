@@ -11,7 +11,7 @@ class OutfitForm(forms.ModelForm):
         model = Outfit
         fields = ['name', 'image', 'description', 'garments']
 
-        # garments = forms.ModelMultipleChoiceField(
-        #     queryset=Garment.objects.all(),
-        #     widget=forms.CheckboxSelectMultiple
-        # )
+    def __init__(self, *args, **kwargs):
+        current_user = kwargs.pop('user')
+        super(OutfitForm, self).__init__(*args, **kwargs)
+        self.fields['garments'].queryset = Garment.objects.filter(user=current_user)

@@ -52,7 +52,7 @@ def garment_delete(request, garment_id):
 @login_required(login_url='/login')
 def outfit_create(request):
     if request.method == 'POST':
-        form = OutfitForm(request.POST, request.FILES)
+        form = OutfitForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             outfit = form.save(commit=False)
             outfit.user = request.user
@@ -60,7 +60,7 @@ def outfit_create(request):
             form.save_m2m()
             return redirect('wardrobe:wardrobe')
     else:
-        form = OutfitForm()
+        form = OutfitForm(user=request.user)
     return render(request, 'wardrobe/outfit_form.html', {'form': form})
 
 @login_required(login_url='/login')
@@ -71,7 +71,7 @@ def outfit_detail(request, outfit_id):
 @login_required(login_url='/login')
 def outfit_edit(request, outfit_id):
     record = get_object_or_404(Outfit, user=request.user, pk=outfit_id)
-    form = OutfitForm(request.POST or None, instance=record)
+    form = OutfitForm(request.POST or None, instance=record, user=request.user)
     if form.is_valid():
         form.save()
         return redirect('wardrobe:outfit_detail', outfit_id=outfit_id)
