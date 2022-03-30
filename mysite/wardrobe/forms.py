@@ -7,6 +7,11 @@ class GarmentForm(forms.ModelForm):
         fields = ['name', 'image', 'category', 'description']
 
 class OutfitForm(forms.ModelForm):
+    garments = forms.ModelMultipleChoiceField(
+        queryset=Garment.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True)
+
     class Meta:
         model = Outfit
         fields = ['name', 'image', 'description', 'garments']
