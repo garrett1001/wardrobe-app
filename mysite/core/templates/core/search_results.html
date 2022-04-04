@@ -1,0 +1,48 @@
+{% extends "core/header.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+
+<!--Search Results-->
+<div class="container py-5" style="max-width: 540px;">
+    <h1 class="display-1">Search Results</h1>
+    {% if searched %}
+        <h2>You Searched For "{{ searched }}"</h2>
+        <br>
+        {% for user in users %}
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <!-- <img src="..." class="img-fluid rounded-start" alt="..."> -->
+                        <!-- <div style="width: 150px; height: 150px; background-color: gray;"></div> -->
+                        <div style="width: 100%; height: 100%; background-color: gray;"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ user }}</h5>
+                            <p class="card-text">Followers: 0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body">
+                            <div class="row row-cols-auto g-1">
+                                <div class="col">
+                                    <a class="btn btn-primary" href="#">Wardrobe</a>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-secondary" href="#">Follow</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+    {% else %}
+        <h1>Hey! You Forgot To Search For A User...</h1>
+    {% endif %}
+</div>
+
+{% endblock %}

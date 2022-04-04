@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 def homepage(request):
@@ -44,3 +45,11 @@ def logout_request(request):
 	logout(request)
 	messages.info(request, "You have successfully logged out.") 
 	return redirect("core:homepage")
+
+def search_results(request):
+	if request.method == "POST":
+		searched = request.POST['searched']
+		users = User.objects.filter(username__contains=searched)
+		return render(request, 'core/search_results.html', {'searched':searched, 'users':users})
+	else:
+		return render(request, 'core/search_results.html', {})

@@ -28,6 +28,11 @@
                 {% endif %}
 
             </ul>
+            <form class="d-flex" action="{% url 'core:search_results' %}" method="POST">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
 </nav>
