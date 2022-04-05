@@ -8,9 +8,8 @@
 <div class="container py-5">
 
     <div class="row">
-        <div class="col-lg-4 col-md-8 col-sm-11 mx-auto">
+        <div class="col-lg-6 col-md-10 mx-auto">
 
-            <!-- <h1>{{ garment.name }}</h1> -->
             <h1 class="display-4">{{ garment.name }}</h1>
 
             <figure class="figure">
@@ -21,30 +20,33 @@
             
             <p>{{ garment.description }}</p>
 
-            <a class="btn btn-secondary" href="{% url 'wardrobe:wardrobe' %}" role="button">Back</a>
-            <a class="btn btn-primary" href="{% url 'wardrobe:garment_edit' garment.id %}" role="button">Edit</a>
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#garmentDeleteModal">
-                Delete
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="garmentDeleteModal" tabindex="-1" aria-labelledby="garmentDeleteModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="garmentDeleteModalLabel">Delete Garment</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this item?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form action="{% url 'wardrobe:garment_delete' garment_id=garment.id %}" method="POST">
-                                {% csrf_token %}
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
+            <div>
+                <!-- Back button needs to be fixed -->
+                <a class="btn btn-secondary" href="{% url 'wardrobe:wardrobe' %}" role="button">Back</a>
+                <a class="btn btn-primary" href="{% url 'wardrobe:garment_edit' garment.id %}" role="button">Edit</a>
+ 
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#garmentDeleteModal">
+                    Delete
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="garmentDeleteModal" tabindex="-1" aria-labelledby="garmentDeleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="garmentDeleteModalLabel">Delete Garment</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this item?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form action="{% url 'wardrobe:garment_delete' garment_id=garment.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
