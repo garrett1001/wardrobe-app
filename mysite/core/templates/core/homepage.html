@@ -8,7 +8,13 @@
 <div class="container py-5">
     <h1 class="display-1">Home</h1>
     <hr>
-    <a class="btn btn-primary" href="{% url 'wardrobe:wardrobe' %}">Wardrobe</a>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">Welcome</h1>
+          <p class="col-md-8 fs-4">Garmit is a social media wardrobe management web app to create, share, and discover new outfits. To get started upload garments to your wardrobe and then create outfits from them.</p>
+          <a class="btn btn-primary btn-lg" href="{% url 'wardrobe:wardrobe' %}">Wardrobe</a>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
