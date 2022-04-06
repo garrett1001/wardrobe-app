@@ -14,6 +14,7 @@
 
     <div class="container py-4">
         {% if latest_outfit_list %}
+        <div class="col col-lg-6 mx-auto">
             <div id="outfitCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     {% for outfit in latest_outfit_list %}
@@ -41,10 +42,13 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+        </div>
         {% else %}
             <p>No outfits created.</p>
         {% endif %}
     </div>
+
+    <hr>
 
     <h1>Garments</h1>
     <a class="btn btn-primary" href="{% url 'wardrobe:garment_upload' %}" role="button">Add</a>
