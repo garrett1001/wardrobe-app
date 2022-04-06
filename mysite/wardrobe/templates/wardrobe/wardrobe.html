@@ -9,9 +9,15 @@
     <h1 class="display-1">Wardrobe</h1>
     <hr>
 
-    <h1>Outfits</h1>
-    <a class="btn btn-primary" href="{% url 'wardrobe:outfit_create' %}" role="button">Create</a>
-
+    <div class="row">
+        <div class="col">
+            <h1>Outfits</h1>
+        </div>
+        <div class="col">
+            <a class="btn btn-primary float-end" href="{% url 'wardrobe:outfit_create' %}" role="button">Create</a>
+        </div>
+    </div>
+    
     <div class="container py-4">
         {% if latest_outfit_list %}
         <div class="col col-lg-6 mx-auto">
@@ -50,8 +56,14 @@
 
     <hr>
 
-    <h1>Garments</h1>
-    <a class="btn btn-primary" href="{% url 'wardrobe:garment_upload' %}" role="button">Add</a>
+    <div class="row">
+        <div class="col">
+            <h1>Garments</h1>
+        </div>
+        <div class="col">
+            <a class="btn btn-primary float-end" href="{% url 'wardrobe:garment_upload' %}" role="button">Add</a>
+        </div>
+    </div>
 
     <div class="container py-4">
         {% if latest_garment_list %}
