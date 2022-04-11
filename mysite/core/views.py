@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .forms import NewUserForm
+from .models import UserProfile
 
 # Create your views here.
 def homepage(request):
@@ -15,6 +16,7 @@ def register_request(request):
 		form = NewUserForm(request.POST)
 		if form.is_valid():
 			user = form.save()
+			UserProfile(user=user).save()
 			login(request, user)
 			messages.success(request, "Registration successful." )
 			return redirect("core:homepage")
