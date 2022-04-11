@@ -17,21 +17,21 @@
                 <img src="{{ outfit.image.url }}" class="figure-img img-fluid rounded">
                 <figcaption class="figure-caption">{{ outfit.description }}</figcaption>
             </figure>
-            
+
             <p>Garments:</p>
 
             <div class="row row-cols-2 row-cols-md-3 g-4">
                 {% for garment in outfit.garments.all %}
-                    <div class="col">
-                        <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
-                            <div class="card h-100">
-                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
-                                <div class="card-body">
-                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
-                                </div>
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+                </div>
                 {% endfor %}
             </div>
 
@@ -46,12 +46,14 @@
                     Delete
                 </button>
                 <!-- Modal -->
-                <div class="modal fade" id="outfitDeleteModal" tabindex="-1" aria-labelledby="outfitDeleteModalLabel" aria-hidden="true">
+                <div class="modal fade" id="outfitDeleteModal" tabindex="-1" aria-labelledby="outfitDeleteModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="outfitDeleteModalLabel">Delete Outfit</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 Are you sure you want to delete this item?

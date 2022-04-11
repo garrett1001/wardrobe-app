@@ -2,7 +2,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">Garm<strong>it</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -10,29 +11,26 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'core:homepage' %}">Home</a>
                 </li>
-
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'wardrobe:wardrobe' %}">Wardrobe</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Welcome, {{user.username}}</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:login' %}">Login</a>
-                </li>
                 {% endif %}
-
             </ul>
-            <form class="d-flex ms-auto" action="{% url 'core:search_results' %}" method="POST">
+            <form class="d-flex ms-auto mb-3 mb-lg-0 me-lg-3" action="{% url 'core:search_results' %}" method="POST">
                 {% csrf_token %}
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
             </form>
+            <div class="d-flex ms-auto">
+                {% if user.is_authenticated %}
+                <!-- <a class="nav-link" href="#">Welcome, {{user.username}}</a> -->
+                <a class="btn btn-outline-light" href="{% url 'core:logout' %}">Logout</a>
+                {% else %}
+                <a class="btn btn-outline-light me-2" href="{% url 'core:login' %}">Login</a>
+                <a class="btn btn-warning" href="{% url 'core:register' %}">Sign-up</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </nav>
