@@ -17,20 +17,32 @@
                 </li>
                 {% endif %}
             </ul>
-            <form class="d-flex mb-3 mb-lg-0" action="{% url 'core:search_results' %}" method="POST">
+            <form class="d-flex mb-2 mb-lg-0" action="{% url 'core:search_results' %}" method="POST">
                 {% csrf_token %}
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             {% if user.is_authenticated %}
-            <ul class="navbar-nav ms-auto mb-1 mb-lg-0 me-lg-2">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{user.username}}</a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">{{user.username}}</a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#">Profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Settings</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'core:logout' %}">Logout</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
-            <div class="d-flex">
-                <a class="btn btn-outline-light" href="{% url 'core:logout' %}">Logout</a>
-            </div>
             {% else %}
             <div class="d-flex ms-auto">
                 <a class="btn btn-outline-light me-2" href="{% url 'core:login' %}">Login</a>
