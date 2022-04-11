@@ -1,4 +1,4 @@
-{% extends "core/header.html" %}
+{% extends "core/base.html" %}
 
 {% block title %}Search Results{% endblock %}
 
@@ -10,7 +10,7 @@
     {% if searched %}
     <h2>You Searched For "{{ searched }}"</h2>
     <br>
-    
+
     {% for user in users %}
     <div class="card mb-3">
         <div class="row g-0">
