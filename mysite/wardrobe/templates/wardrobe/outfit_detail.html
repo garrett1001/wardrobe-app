@@ -18,8 +18,102 @@
                 <figcaption class="figure-caption">{{ outfit.description }}</figcaption>
             </figure>
 
-            <p>Garments:</p>
+            {% if tops %}
+            <p>Tops:</p>
+            <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for garment in tops %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            {% endif %}
 
+            {% if bottoms %}
+            <p>Bottoms:</p>
+            <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for garment in bottoms %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            {% endif %}
+
+            {% if outerwear %}
+            <p>Outerwear:</p>
+            <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for garment in outerwear %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            {% endif %}
+
+            {% if footwear %}
+            <p>Footwear:</p>
+            <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for garment in footwear %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            {% endif %}
+
+            {% if accessories %}
+            <p>Accessories:</p>
+            <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for garment in accessories %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            {% endif %}
+
+            <!-- <p>Garments:</p>
             <div class="row row-cols-2 row-cols-md-3 g-4">
                 {% for garment in outfit.garments.all %}
                 <div class="col">
@@ -34,13 +128,11 @@
                 </div>
                 {% endfor %}
             </div>
-
-            <br>
+            <br> -->
 
             <div>
                 <a class="btn btn-secondary" href="{% url 'wardrobe:wardrobe' %}" role="button">Back</a>
                 <a class="btn btn-primary" href="{% url 'wardrobe:outfit_edit' outfit.id %}" role="button">Edit</a>
-
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#outfitDeleteModal">
                     Delete

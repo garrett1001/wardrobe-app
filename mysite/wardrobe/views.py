@@ -66,7 +66,18 @@ def outfit_create(request):
 @login_required(login_url='/login')
 def outfit_detail(request, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)
-    return render(request, 'wardrobe/outfit_detail.html', {'outfit': outfit})
+    tops = outfit.garments.filter(category='Top')
+    bottoms = outfit.garments.filter(category='Bottom')
+    outerwear = outfit.garments.filter(category='Outerwear')
+    footwear = outfit.garments.filter(category='Footwear')
+    accessories = outfit.garments.filter(category='Accessory')
+    context = { 'outfit': outfit,
+                'tops': tops,
+                'bottoms': bottoms,
+                'outerwear': outerwear,
+                'footwear': footwear,
+                'accessories': accessories }
+    return render(request, 'wardrobe/outfit_detail.html', context)
 
 @login_required(login_url='/login')
 def outfit_edit(request, outfit_id):
