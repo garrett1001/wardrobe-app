@@ -51,7 +51,7 @@ def logout_request(request):
 def search_results(request):
 	if request.method == "POST":
 		searched = request.POST['searched']
-		users = User.objects.filter(username__contains=searched)
+		users = UserProfile.objects.filter(user__username__contains=searched)
 		return render(request, 'core/search_results.html', {'searched':searched, 'users':users})
 	else:
 		return render(request, 'core/search_results.html', {})
