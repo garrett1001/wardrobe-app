@@ -8,14 +8,14 @@ from .forms import GarmentForm, OutfitForm
 # Create your views here.
 @login_required(login_url='/login')
 def wardrobe(request):
-    latest_garment_list = Garment.objects.select_related().filter(user=request.user).order_by('-date')
+    # latest_garment_list = Garment.objects.select_related().filter(user=request.user).order_by('-date')
     latest_outfit_list = Outfit.objects.select_related().filter(user=request.user).order_by('-date')
     tops = Garment.objects.select_related().filter(user=request.user, category='Top').order_by('-date')
     bottoms = Garment.objects.select_related().filter(user=request.user, category='Bottom').order_by('-date')
     outerwear = Garment.objects.select_related().filter(user=request.user, category='Outerwear').order_by('-date')
     footwear = Garment.objects.select_related().filter(user=request.user, category='Footwear').order_by('-date')
     accessories = Garment.objects.select_related().filter(user=request.user, category='Accessory').order_by('-date')
-    context = { 'latest_garment_list': latest_garment_list,
+    context = { #'latest_garment_list': latest_garment_list,
                 'latest_outfit_list': latest_outfit_list,
                 'tops': tops,
                 'bottoms': bottoms,
