@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="container py-4">
+    <div class="py-3">
         {% if latest_outfit_list %}
         <div class="col col-lg-6 mx-auto">
             <div id="outfitCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -75,8 +75,103 @@
         </div>
     </div>
 
-    <div class="container py-4">
-        {% if latest_garment_list %}
+    <div class="py-3">
+        {% if tops %}
+        <p>Tops:</p>
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+            {% for garment in tops %}
+            <div class="col">
+                <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                    <div class="card h-100">
+                        <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                        <div class="card-body">
+                            <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+
+        {% if bottoms %}
+        <p>Bottoms:</p>
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+            {% for garment in bottoms %}
+            <div class="col">
+                <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                    <div class="card h-100">
+                        <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                        <div class="card-body">
+                            <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+
+        {% if outerwear %}
+        <p>Outerwear:</p>
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+            {% for garment in outerwear %}
+            <div class="col">
+                <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                    <div class="card h-100">
+                        <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                        <div class="card-body">
+                            <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+
+        {% if footwear %}
+        <p>Footwear:</p>
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+            {% for garment in footwear %}
+            <div class="col">
+                <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                    <div class="card h-100">
+                        <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                        <div class="card-body">
+                            <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+
+        {% if accessories %}
+        <p>Accessories:</p>
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+            {% for garment in accessories %}
+            <div class="col">
+                <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                    <div class="card h-100">
+                        <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
+                        <div class="card-body">
+                            <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+
+        <!-- {% if latest_garment_list %}
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for garment in latest_garment_list %}
             <div class="col">
@@ -93,7 +188,7 @@
         </div>
         {% else %}
         <p>No garments added.</p>
-        {% endif %}
+        {% endif %} -->
     </div>
 
 </div>
