@@ -29,7 +29,7 @@
                         data-bs-toggle="dropdown" aria-expanded="false">{{user.username}}</a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="{% url 'core:user_profile' user.username %}">Profile</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="#">Settings</a>

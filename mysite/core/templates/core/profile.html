@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Wardrobe{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row pb-4">
+        <div class="col col-md-4">
+            <img src="{{ profile.avatar.url }}" class="img-thumbnail float-start" alt="avatar">
+        </div>
+        <div class="col">
+            <h1>{{ profile.user.username }}</h1>
+            <p><b>{{ profile.user.get_full_name }}</b></p>
+            <p>{{ profile.bio }}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h1>Outfits</h1>
+
+    <hr>
+
+    <h1>Garments</h1>
+
+</div>
+
+{% endblock %}

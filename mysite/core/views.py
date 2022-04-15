@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -55,3 +55,9 @@ def search_results(request):
 		return render(request, 'core/search_results.html', {'searched':searched, 'users':users})
 	else:
 		return render(request, 'core/search_results.html', {})
+
+@login_required(login_url='/login')
+def profile(request, username):
+	user = get_object_or_404(User, username=username)
+	profile = get_object_or_404(UserProfile, user=user)
+	return render(request, 'core/profile.html', {'profile': profile})
