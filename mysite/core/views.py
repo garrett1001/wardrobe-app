@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import NewUserForm
 from .models import UserProfile
+from wardrobe.models import Garment, Outfit
 
 # Create your views here.
 def homepage(request):
@@ -60,4 +61,17 @@ def search_results(request):
 def profile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = get_object_or_404(UserProfile, user=user)
-	return render(request, 'core/profile.html', {'profile': profile})
+	latest_outfit_list = Outfit.objects.select_related().filter(user=user).order_by('-date')
+	tops = Garment.objects.select_related().filter(user=user, category='Top').order_by('-date')
+	bottoms = Garment.objects.select_related().filter(user=user, category='Bottom').order_by('-date')
+	outerwear = Garment.objects.select_related().filter(user=user, category='Outerwear').order_by('-date')
+	footwear = Garment.objects.select_related().filter(user=user, category='Footwear').order_by('-date')
+	accessories = Garment.objects.select_related().filter(user=user, category='Accessory').order_by('-date')
+	context = {	'profile': profile,
+				'latest_outfit_list': latest_outfit_list,
+                'tops': tops,
+                'bottoms': bottoms,
+                'outerwear': outerwear,
+                'footwear': footwear,
+                'accessories': accessories                  }
+	return render(request, 'core/profile.html', context)
