@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ garment.name }}{% endblock %}
+
+{% block content %}
+
+<!--Garment_detail-->
+<div class="container py-5">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-10 mx-auto">
+
+            <h1 class="display-4">{{ garment.name }}</h1>
+
+            <figure class="figure">
+                <!-- <img src="{{ garment.image.url }}" class="figure-img img-fluid rounded" style="max-height:600px;"> -->
+                <img src="{{ garment.image.url }}" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">Category: {{ garment.category }}</figcaption>
+            </figure>
+
+            <p>{{ garment.description }}</p>
+
+            <div>
+                <!-- Back button needs to be fixed -->
+                <a class="btn btn-secondary" href="{% url 'core:user_profile' garment.user%}" role="button">Back</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
