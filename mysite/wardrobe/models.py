@@ -14,7 +14,7 @@ CATEGORY_CHOICES = [
 
 class Garment(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to='garments')
     description = models.CharField(max_length=200)
     category = models.CharField(max_length=9, choices=CATEGORY_CHOICES)
     date = models.DateTimeField(auto_now_add=True)
@@ -25,7 +25,7 @@ class Garment(models.Model):
 
 class Outfit(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to='outfits')
     description = models.CharField(max_length=200)
     garments = models.ManyToManyField(Garment)
     date = models.DateTimeField(auto_now_add=True)

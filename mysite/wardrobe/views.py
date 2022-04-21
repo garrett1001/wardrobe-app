@@ -46,10 +46,13 @@ def garment_detail(request, garment_id):
 @login_required(login_url='/login')
 def garment_edit(request, garment_id):
     record = get_object_or_404(Garment, user=request.user, pk=garment_id)
-    form = GarmentForm(request.POST or None, instance=record)
-    if form.is_valid():
-        form.save()
-        return redirect('wardrobe:garment_detail', garment_id=garment_id)
+    if request.method == 'POST':
+        form = GarmentForm(request.POST, files=request.FILES, instance=record)
+        if form.is_valid():
+            form.save()
+            return redirect('wardrobe:garment_detail', garment_id=garment_id)
+    else:
+        form = GarmentForm(instance=record)
     return render(request, 'wardrobe/garment_edit.html', {'form': form, 'garment_id': garment_id})
 
 @login_required(login_url='/login')
@@ -92,10 +95,13 @@ def outfit_detail(request, outfit_id):
 @login_required(login_url='/login')
 def outfit_edit(request, outfit_id):
     record = get_object_or_404(Outfit, user=request.user, pk=outfit_id)
-    form = OutfitForm(request.POST or None, instance=record, user=request.user)
-    if form.is_valid():
-        form.save()
-        return redirect('wardrobe:outfit_detail', outfit_id=outfit_id)
+    if request.method == 'POST':
+        form = OutfitForm(request.POST, files=request.FILES, instance=record, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('wardrobe:outfit_detail', outfit_id=outfit_id)
+    else:
+        form = OutfitForm(instance=record, user=request.user)
     return render(request, 'wardrobe/outfit_edit.html', {'form': form, 'outfit_id': outfit_id})
 
 @login_required(login_url='/login')

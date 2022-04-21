@@ -49,13 +49,17 @@ def logout_request(request):
 	messages.info(request, "You have successfully logged out.") 
 	return redirect("core:homepage")
 
+@login_required(login_url='/login')
 def edit_profile(request):
-    record = get_object_or_404(UserProfile, user=request.user)
-    form = UserProfileForm(request.POST or None, instance=record)
-    if form.is_valid():
-        form.save()
-        return redirect('core:user_profile', username=request.user.username)
-    return render(request, 'core/user_profile_form.html', {'form': form})
+	record = get_object_or_404(UserProfile, user=request.user)
+	if request.method == 'POST':
+		form = UserProfileForm(request.POST, files=request.FILES, instance=record)
+		if form.is_valid():
+			form.save()
+			return redirect('core:user_profile', username=request.user.username)
+	else:
+		form = UserProfileForm(instance=record)
+	return render(request, 'core/user_profile_form.html', {'form': form})
 
 def search_results(request):
 	if request.method == "POST":
