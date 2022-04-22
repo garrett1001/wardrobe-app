@@ -12,9 +12,8 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <br>
         <a class="btn btn-secondary" href="{% url 'core:user_profile' user.username %}" role="button">Back</a>
-        <button class="btn btn-primary" type="submit">Upload</button>
+        <button class="btn btn-primary" type="submit">Edit</button>
     </form>
 </div>
 
