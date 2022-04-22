@@ -79,7 +79,7 @@
     <div class="pt-1">
         {% if tops %}
         <p>Tops:</p>
-        <div class="row row-cols-2 row-cols-md-3 g-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for garment in tops %}
             <div class="col">
                 <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
@@ -98,7 +98,7 @@
 
         {% if bottoms %}
         <p>Bottoms:</p>
-        <div class="row row-cols-2 row-cols-md-3 g-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for garment in bottoms %}
             <div class="col">
                 <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
@@ -117,7 +117,7 @@
 
         {% if outerwear %}
         <p>Outerwear:</p>
-        <div class="row row-cols-2 row-cols-md-3 g-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for garment in outerwear %}
             <div class="col">
                 <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
@@ -136,7 +136,7 @@
 
         {% if footwear %}
         <p>Footwear:</p>
-        <div class="row row-cols-2 row-cols-md-3 g-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for garment in footwear %}
             <div class="col">
                 <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
@@ -155,7 +155,7 @@
 
         {% if accessories %}
         <p>Accessories:</p>
-        <div class="row row-cols-2 row-cols-md-3 g-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for garment in accessories %}
             <div class="col">
                 <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
