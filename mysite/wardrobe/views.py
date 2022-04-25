@@ -8,20 +8,14 @@ from .forms import GarmentForm, OutfitForm
 # Create your views here.
 @login_required(login_url='/login')
 def wardrobe(request):
-    # latest_garment_list = Garment.objects.select_related().filter(user=request.user).order_by('-date')
+    latest_garment_list = Garment.objects.select_related().filter(user=request.user).order_by('-date')
     latest_outfit_list = Outfit.objects.select_related().filter(user=request.user).order_by('-date')
-    tops = Garment.objects.select_related().filter(user=request.user, category='Top').order_by('-date')
-    bottoms = Garment.objects.select_related().filter(user=request.user, category='Bottom').order_by('-date')
-    outerwear = Garment.objects.select_related().filter(user=request.user, category='Outerwear').order_by('-date')
-    footwear = Garment.objects.select_related().filter(user=request.user, category='Footwear').order_by('-date')
-    accessories = Garment.objects.select_related().filter(user=request.user, category='Accessory').order_by('-date')
-    context = { #'latest_garment_list': latest_garment_list,
-                'latest_outfit_list': latest_outfit_list,
-                'tops': tops,
-                'bottoms': bottoms,
-                'outerwear': outerwear,
-                'footwear': footwear,
-                'accessories': accessories                  }
+
+    context = {
+        'latest_garment_list': latest_garment_list,
+        'latest_outfit_list': latest_outfit_list,
+    }
+    
     return render(request, 'wardrobe/wardrobe.html', context)
 
 @login_required(login_url='/login')
@@ -79,17 +73,9 @@ def outfit_create(request):
 @login_required(login_url='/login')
 def outfit_detail(request, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)
-    tops = outfit.garments.filter(category='Top')
-    bottoms = outfit.garments.filter(category='Bottom')
-    outerwear = outfit.garments.filter(category='Outerwear')
-    footwear = outfit.garments.filter(category='Footwear')
-    accessories = outfit.garments.filter(category='Accessory')
-    context = { 'outfit': outfit,
-                'tops': tops,
-                'bottoms': bottoms,
-                'outerwear': outerwear,
-                'footwear': footwear,
-                'accessories': accessories }
+    context = { 
+        'outfit': outfit
+    }
     return render(request, 'wardrobe/outfit_detail.html', context)
 
 @login_required(login_url='/login')

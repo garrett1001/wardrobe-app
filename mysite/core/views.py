@@ -72,19 +72,20 @@ def search_results(request):
 def profile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = get_object_or_404(UserProfile, user=user)
+	latest_garment_list = Garment.objects.select_related().filter(user=request.user).order_by('-date')
 	latest_outfit_list = Outfit.objects.select_related().filter(user=user).order_by('-date')
-	tops = Garment.objects.select_related().filter(user=user, category='Top').order_by('-date')
-	bottoms = Garment.objects.select_related().filter(user=user, category='Bottom').order_by('-date')
-	outerwear = Garment.objects.select_related().filter(user=user, category='Outerwear').order_by('-date')
-	footwear = Garment.objects.select_related().filter(user=user, category='Footwear').order_by('-date')
-	accessories = Garment.objects.select_related().filter(user=user, category='Accessory').order_by('-date')
-	context = {	'profile': profile,
-				'latest_outfit_list': latest_outfit_list,
-                'tops': tops,
-                'bottoms': bottoms,
-                'outerwear': outerwear,
-                'footwear': footwear,
-                'accessories': accessories                  }
+	
+	followers = profile.followers.all()
+
+	number_of_followers = len(followers)
+
+	context = {	
+		'profile': profile,
+		'latest_garment_list': latest_garment_list,
+		'latest_outfit_list': latest_outfit_list,
+		'number_of_followers': number_of_followers
+	}
+
 	return render(request, 'core/profile.html', context)
 
 def profile_garment_detail(request, username, garment_id):
@@ -93,15 +94,33 @@ def profile_garment_detail(request, username, garment_id):
 
 def profile_outfit_detail(request, username, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)
-    tops = outfit.garments.filter(category='Top')
-    bottoms = outfit.garments.filter(category='Bottom')
-    outerwear = outfit.garments.filter(category='Outerwear')
-    footwear = outfit.garments.filter(category='Footwear')
-    accessories = outfit.garments.filter(category='Accessory')
-    context = { 'outfit': outfit,
-                'tops': tops,
-                'bottoms': bottoms,
-                'outerwear': outerwear,
-                'footwear': footwear,
-                'accessories': accessories }
+    # tops = outfit.garments.filter(category='Top')
+    # bottoms = outfit.garments.filter(category='Bottom')
+    # outerwear = outfit.garments.filter(category='Outerwear')
+    # footwear = outfit.garments.filter(category='Footwear')
+    # accessories = outfit.garments.filter(category='Accessory')
+
+    context = { 
+		'outfit': outfit,
+        # 'tops': tops,
+        # 'bottoms': bottoms,
+        # 'outerwear': outerwear,
+        # 'footwear': footwear,
+        # 'accessories': accessories
+	}
+
     return render(request, 'core/profile_outfit_detail.html', context)
+
+def add_follower(request, username):
+	user = get_object_or_404(User, username=username)
+	profile = get_object_or_404(UserProfile, user=user)
+	profile.followers.add(request.user)
+
+	return redirect('core:user_profile', username=username)
+
+def remove_follower(request, username):
+	user = get_object_or_404(User, username=username)
+	profile = get_object_or_404(UserProfile, user=user)
+	profile.followers.remove(request.user)
+
+	return redirect('core:user_profile', username=username)
