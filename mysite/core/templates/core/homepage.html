@@ -24,10 +24,11 @@
     <div class="row align-items-md-stretch">
         <div class="col-md-6">
             <div class="h-100 p-5 text-white bg-dark rounded-3">
-                <h2>Change the background</h2>
-                <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look.
-                    Then, mix and match with additional component themes and more.</p>
-                <button class="btn btn-outline-light" type="button">Example button</button>
+                <h2>Set up your profile</h2>
+                <p>Finish your profile by adding an avatar and bio in your profile settings. Your profile is public by
+                    default, however, if you would like to use the site to manage your wardrobe without sharing your
+                    profile with others you can make it private.</p>
+                <a class="btn btn-outline-light" href="{% url 'core:edit_profile' %}">Profile Settings</a>
             </div>
         </div>
         <div class="col-md-6">
