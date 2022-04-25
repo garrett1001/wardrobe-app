@@ -73,10 +73,7 @@ def outfit_create(request):
 @login_required(login_url='/login')
 def outfit_detail(request, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)
-    context = { 
-        'outfit': outfit
-    }
-    return render(request, 'wardrobe/outfit_detail.html', context)
+    return render(request, 'wardrobe/outfit_detail.html', {'outfit': outfit})
 
 @login_required(login_url='/login')
 def outfit_edit(request, outfit_id):

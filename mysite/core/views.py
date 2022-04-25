@@ -94,12 +94,7 @@ def profile_garment_detail(request, username, garment_id):
 
 def profile_outfit_detail(request, username, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)
-
-    context = { 
-		'outfit': outfit
-	}
-
-    return render(request, 'core/profile_outfit_detail.html', context)
+    return render(request, 'core/profile_outfit_detail.html', {'outfit': outfit})
 
 def add_follower(request, username):
 	user = get_object_or_404(User, username=username)
