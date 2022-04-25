@@ -18,7 +18,7 @@
                 <figcaption class="figure-caption">{{ outfit.description }}</figcaption>
             </figure>
 
-            {% regroup outfit.garments.all by category as category_list %}
+            {% regroup outfit.garments.all|dictsortreversed:"category" by category as category_list %}
             {% for category in category_list %}
             <p>{{ category.grouper }}:</p>
             <div class="row row-cols-2 row-cols-md-3 g-4">

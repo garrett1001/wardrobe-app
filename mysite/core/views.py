@@ -94,19 +94,9 @@ def profile_garment_detail(request, username, garment_id):
 
 def profile_outfit_detail(request, username, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)
-    # tops = outfit.garments.filter(category='Top')
-    # bottoms = outfit.garments.filter(category='Bottom')
-    # outerwear = outfit.garments.filter(category='Outerwear')
-    # footwear = outfit.garments.filter(category='Footwear')
-    # accessories = outfit.garments.filter(category='Accessory')
 
     context = { 
-		'outfit': outfit,
-        # 'tops': tops,
-        # 'bottoms': bottoms,
-        # 'outerwear': outerwear,
-        # 'footwear': footwear,
-        # 'accessories': accessories
+		'outfit': outfit
 	}
 
     return render(request, 'core/profile_outfit_detail.html', context)
