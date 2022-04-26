@@ -77,12 +77,12 @@ def profile(request, username):
 	
 	followers = profile.followers.all()
 
+	is_following = False
+
 	for follower in followers:
 		if follower == request.user:
 			is_following = True
 			break
-		else:
-			is_following = False
 
 	number_of_followers = len(followers)
 
