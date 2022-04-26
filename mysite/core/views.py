@@ -72,18 +72,27 @@ def search_results(request):
 def profile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = get_object_or_404(UserProfile, user=user)
-	latest_garment_list = Garment.objects.select_related().filter(user=request.user).order_by('-date')
+	latest_garment_list = Garment.objects.select_related().filter(user=user).order_by('-date')
 	latest_outfit_list = Outfit.objects.select_related().filter(user=user).order_by('-date')
 	
 	followers = profile.followers.all()
 
+	for follower in followers:
+		if follower == request.user:
+			is_following = True
+			break
+		else:
+			is_following = False
+
 	number_of_followers = len(followers)
 
-	context = {	
+	context = {
+		'user': user,
 		'profile': profile,
 		'latest_garment_list': latest_garment_list,
 		'latest_outfit_list': latest_outfit_list,
-		'number_of_followers': number_of_followers
+		'number_of_followers': number_of_followers,
+		'is_following': is_following,
 	}
 
 	return render(request, 'core/profile.html', context)
@@ -96,16 +105,18 @@ def profile_outfit_detail(request, username, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)
     return render(request, 'core/profile_outfit_detail.html', {'outfit': outfit})
 
+@login_required(login_url='/login')
 def add_follower(request, username):
-	user = get_object_or_404(User, username=username)
-	profile = get_object_or_404(UserProfile, user=user)
-	profile.followers.add(request.user)
-
+	if request.method == 'POST':
+		user = get_object_or_404(User, username=username)
+		profile = get_object_or_404(UserProfile, user=user)
+		profile.followers.add(request.user)
 	return redirect('core:user_profile', username=username)
 
+@login_required(login_url='/login')
 def remove_follower(request, username):
-	user = get_object_or_404(User, username=username)
-	profile = get_object_or_404(UserProfile, user=user)
-	profile.followers.remove(request.user)
-
+	if request.method == 'POST':
+		user = get_object_or_404(User, username=username)
+		profile = get_object_or_404(UserProfile, user=user)
+		profile.followers.remove(request.user)
 	return redirect('core:user_profile', username=username)
