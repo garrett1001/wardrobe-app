@@ -11,7 +11,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'core:homepage' %}">Home</a>
                 </li>
-                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'wardrobe:wardrobe' %}">Wardrobe</a>
                 </li>
@@ -22,14 +22,14 @@
                 <input class="form-control me-2" type="search" placeholder="User Search" aria-label="Search" name="searched">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">{{user.username}}</a>
+                        data-bs-toggle="dropdown" aria-expanded="false">{{request.user.username}}</a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="{% url 'core:user_profile' user.username %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'core:user_profile' request.user.username %}">Profile</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{% url 'core:edit_profile' %}">Settings</a>

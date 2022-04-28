@@ -1,18 +1,42 @@
 {% extends 'core/base.html' %}
 
-{% block title %}{{ user.username }}'s Profile{% endblock %}
+{% block title %}{{ profile.user.username }}'s Profile{% endblock %}
 
 {% block content %}
 
 <div class="container py-5">
     <div class="row pb-3">
-        <div class="col col-md-4">
-            <img src="{{ profile.avatar.url }}" class="img-thumbnail float-start" alt="avatar">
+        <div class="col col-md-4 col-lg-3">
+            <div class="ratio ratio-1x1">
+                <img src="{{ profile.avatar.url }}" class="img-thumbnail float-start" alt="avatar">
+            </div>
         </div>
         <div class="col">
-            <h1>{{ user.username }}</h1>
-            <p><b>{{ user.get_full_name }}</b></p>
-            <p>{{ profile.bio }}</p>
+            <div class="row">
+                <div class="col col-12 col-sm-9 col-lg-10">
+                    <p>Followers: {{ number_of_followers }}</p>
+                    <h1>{{ profile.user.username }}</h1>
+                    <p><b>{{ profile.user.get_full_name }}</b></p>
+                    <p>{{ profile.bio }}</p>
+                </div>
+                <div class="col">
+                    {% if profile.user != request.user %}
+                    {% if is_following %}
+                    <form class="d-grid gap-2 d-md-flex justify-content-md-end"
+                        action="{% url 'core:remove_follower' profile.user.username %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger" type="submit">Unfollow</button>
+                    </form>
+                    {% else %}
+                    <form class="d-grid gap-2 d-md-flex justify-content-md-end"
+                        action="{% url 'core:add_follower' profile.user.username %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success" type="submit">Follow</button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 
@@ -27,7 +51,8 @@
                     {% for outfit in latest_outfit_list %}
                     {% if forloop.first %}
                     <div class="carousel-item active">
-                        <a class="text-decoration-none text-reset" href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
                             <img src="{{ outfit.image.url }}" class="d-block w-100" alt="Outfit">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ outfit.name }}</h5>
@@ -37,7 +62,8 @@
                     </div>
                     {% else %}
                     <div class="carousel-item">
-                        <a class="text-decoration-none text-reset" href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
                             <img src="{{ outfit.image.url }}" class="d-block w-100" alt="Outfit">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ outfit.name }}</h5>

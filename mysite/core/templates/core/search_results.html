@@ -10,11 +10,10 @@
     {% if searched %}
     <h2>You Searched For "{{ searched }}"</h2>
     <br>
-
     {% for user in users %}
     <div class="card mb-3">
         <div class="row g-0">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="ratio ratio-1x1">
                     <img src="{{ user.avatar.url }}" class="img-fluid rounded-start" alt="avatar">
                 </div>
@@ -22,25 +21,19 @@
             <div class="col-md-5">
                 <div class="card-body">
                     <h5 class="card-title">{{ user }}</h5>
-                    <p class="card-text">Followers: 0</p>
+                    <p class="card-text">Followers: {{ user.followers.count }}</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card-body">
-                    <div class="row row-cols-auto g-1">
-                        <div class="col">
-                            <a class="btn btn-primary" href="{% url 'core:user_profile' user %}">Wardrobe</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-secondary" href="#">Follow</a>
-                        </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a class="btn btn-primary" href="{% url 'core:user_profile' user %}">View Profile</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     {% endfor %}
-
     {% else %}
     <h1>Hey! You Forgot To Search For A User...</h1>
     {% endif %}

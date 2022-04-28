@@ -87,7 +87,6 @@ def profile(request, username):
 	number_of_followers = len(followers)
 
 	context = {
-		'user': user,
 		'profile': profile,
 		'latest_garment_list': latest_garment_list,
 		'latest_outfit_list': latest_outfit_list,
