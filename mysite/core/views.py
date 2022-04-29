@@ -4,13 +4,16 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Count
 from .forms import NewUserForm, UserProfileForm
 from .models import UserProfile
 from wardrobe.models import Garment, Outfit
 
 # Create your views here.
 def homepage(request):
-    return render(request, 'core/homepage.html')
+	top_profiles = UserProfile.objects.annotate(f_count=Count('followers')) \
+                                .order_by('-f_count')[:3]
+	return render(request, 'core/homepage.html', {'top_profiles':top_profiles})
 
 def register_request(request):
 	if request.method == "POST":
@@ -64,10 +67,15 @@ def edit_profile(request):
 def search_results(request):
 	if request.method == "POST":
 		searched = request.POST['searched']
-		users = UserProfile.objects.filter(user__username__contains=searched, private=False)
-		return render(request, 'core/search_results.html', {'searched':searched, 'users':users})
+		profiles = UserProfile.objects.filter(user__username__contains=searched, private=False)
+		return render(request, 'core/search_results.html', {'searched':searched, 'profiles':profiles})
 	else:
 		return render(request, 'core/search_results.html', {})
+
+def top_profiles_list(request):
+	top_profiles = UserProfile.objects.annotate(f_count=Count('followers')) \
+                                .order_by('-f_count')
+	return render(request, 'core/top_profiles_page.html', {'top_profiles':top_profiles})
 
 def profile(request, username):
 	user = get_object_or_404(User, username=username)

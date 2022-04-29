@@ -5,8 +5,8 @@
 {% block content %}
 
 <!--Homepage-->
-<div class="container py-5">
-    <h1 class="display-1">Home</h1>
+<div class="container py-4">
+    <h1 class="display-1 text-center">Garm<b>it</b></h1>
     <hr>
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
@@ -33,11 +33,33 @@
         </div>
         <div class="col-md-6">
             <div class="h-100 p-5 bg-light border rounded-3">
-                <h2>Add borders</h2>
-                <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be
-                    sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of
-                    both column's content for equal-height.</p>
-                <button class="btn btn-outline-secondary" type="button">Example button</button>
+                <h2>Top Followed Profiles</h2>
+                {% for profile in top_profiles %}
+                <div class="card my-3">
+                    <div class="row g-0">
+                        <div class="col-lg-2 d-none d-lg-block">
+                            <div class="ratio ratio-1x1">
+                                <img src="{{ profile.avatar.url }}" class="img-fluid rounded-start" alt="avatar">
+                            </div>
+                        </div>
+                        <div class="col col-lg-6">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ profile.user.username }}</h5>
+                                <p class="card-text">Followers: {{ profile.followers.count }}</p>
+                            </div>
+                        </div>
+                        <div class="col-auto col-lg-4">
+                            <div class="card-body">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a class="btn btn-primary stretched-link"
+                                        href="{% url 'core:user_profile' user %}">Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <a class="btn btn-outline-secondary" href="{% url 'core:top_profiles' %}">View All</a>
             </div>
         </div>
     </div>

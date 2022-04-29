@@ -1,15 +1,13 @@
 {% extends "core/base.html" %}
 
-{% block title %}Search Results{% endblock %}
+{% block title %}Top Profiles{% endblock %}
 
 {% block content %}
 
 <!--Search Results-->
-<div class="container py-4" style="max-width: 540px;">
-    <h1 class="display-2">Search Results</h1>
-    {% if searched %}
-    <h2>You Searched For "{{ searched }}"</h2>
-    {% for profile in profiles %}
+<div class="container py-5" style="max-width: 540px;">
+    <h1 class="display-4">Top Followed Profiles</h1>
+    {% for profile in top_profiles %}
     <div class="card my-3">
         <div class="row g-0">
             <div class="col">
@@ -33,9 +31,6 @@
         </div>
     </div>
     {% endfor %}
-    {% else %}
-    <h1>Hey! You Forgot To Search For A User...</h1>
-    {% endif %}
 </div>
 
 {% endblock %}
