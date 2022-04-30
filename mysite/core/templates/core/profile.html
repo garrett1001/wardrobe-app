@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="container py-5">
+<div class="container py-4">
     <div class="row align-items-center pb-3">
         <div class="col-3">
             <div class="ratio ratio-1x1">
@@ -12,15 +12,15 @@
             </div>
         </div>
         <div class="col">
-            <p class="text-center mb-0">{{ latest_outfit_list.count }}</p>
+            <p class="text-center mb-0"><b>{{ latest_outfit_list.count }}</b></p>
             <p class="text-center">Outfits</p>
         </div>
         <div class="col">
-            <p class="text-center mb-0">{{ latest_garment_list.count }}</p>
+            <p class="text-center mb-0"><b>{{ latest_garment_list.count }}</b></p>
             <p class="text-center">Garments</p>
         </div>
         <div class="col">
-            <p class="text-center mb-0">{{ number_of_followers }}</p>
+            <p class="text-center mb-0"><b>{{ number_of_followers }}</b></p>
             <p class="text-center">Followers</p>
         </div>
     </div>
@@ -30,21 +30,25 @@
             <p><b>{{ profile.user.get_full_name }}</b></p>
             <p>{{ profile.bio }}</p>
         </div>
-        {% if profile.user != request.user and request.user.is_authenticated %}
+        {% if request.user.is_authenticated %}
         <div class="col-sm-2">
-            {% if is_following %}
-            <form class="d-grid gap-2 d-md-flex justify-content-md-end"
-                action="{% url 'core:remove_follower' profile.user.username %}" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-outline-danger" type="submit">Unfollow</button>
-            </form>
-            {% else %}
-            <form class="d-grid gap-2 d-md-flex justify-content-md-end"
-                action="{% url 'core:add_follower' profile.user.username %}" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-outline-success" type="submit">Follow</button>
-            </form>
-            {% endif %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                {% if profile.user == request.user %}
+                <a class="btn btn-outline-secondary" href="{% url 'core:edit_profile' %}">Edit Profile</a>
+                {% else %}
+                {% if is_following %}
+                <form action="{% url 'core:remove_follower' profile.user.username %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger" type="submit">Unfollow</button>
+                </form>
+                {% else %}
+                <form action="{% url 'core:add_follower' profile.user.username %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success" type="submit">Follow</button>
+                </form>
+                {% endif %}
+                {% endif %}
+            </div>
         </div>
         {% endif %}
     </div>
