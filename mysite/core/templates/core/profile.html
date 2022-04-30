@@ -5,39 +5,48 @@
 {% block content %}
 
 <div class="container py-5">
-    <div class="row pb-3">
-        <div class="col col-md-4 col-lg-3">
+    <div class="row align-items-center pb-3">
+        <div class="col-3">
             <div class="ratio ratio-1x1">
                 <img src="{{ profile.avatar.url }}" class="img-thumbnail float-start" alt="avatar">
             </div>
         </div>
         <div class="col">
-            <div class="row">
-                <div class="col col-12 col-sm-9 col-lg-10">
-                    <p>Followers: {{ number_of_followers }}</p>
-                    <h1>{{ profile.user.username }}</h1>
-                    <p><b>{{ profile.user.get_full_name }}</b></p>
-                    <p>{{ profile.bio }}</p>
-                </div>
-                <div class="col">
-                    {% if profile.user != request.user %}
-                    {% if is_following %}
-                    <form class="d-grid gap-2 d-md-flex justify-content-md-end"
-                        action="{% url 'core:remove_follower' profile.user.username %}" method="POST">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-danger" type="submit">Unfollow</button>
-                    </form>
-                    {% else %}
-                    <form class="d-grid gap-2 d-md-flex justify-content-md-end"
-                        action="{% url 'core:add_follower' profile.user.username %}" method="POST">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-success" type="submit">Follow</button>
-                    </form>
-                    {% endif %}
-                    {% endif %}
-                </div>
-            </div>
+            <p class="text-center mb-0">{{ latest_outfit_list.count }}</p>
+            <p class="text-center">Outfits</p>
         </div>
+        <div class="col">
+            <p class="text-center mb-0">{{ latest_garment_list.count }}</p>
+            <p class="text-center">Garments</p>
+        </div>
+        <div class="col">
+            <p class="text-center mb-0">{{ number_of_followers }}</p>
+            <p class="text-center">Followers</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <h1 class="display-6">{{ profile.user.username }}</h1>
+            <p><b>{{ profile.user.get_full_name }}</b></p>
+            <p>{{ profile.bio }}</p>
+        </div>
+        {% if profile.user != request.user and request.user.is_authenticated %}
+        <div class="col-sm-2">
+            {% if is_following %}
+            <form class="d-grid gap-2 d-md-flex justify-content-md-end"
+                action="{% url 'core:remove_follower' profile.user.username %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger" type="submit">Unfollow</button>
+            </form>
+            {% else %}
+            <form class="d-grid gap-2 d-md-flex justify-content-md-end"
+                action="{% url 'core:add_follower' profile.user.username %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-outline-success" type="submit">Follow</button>
+            </form>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
 
     <hr>
