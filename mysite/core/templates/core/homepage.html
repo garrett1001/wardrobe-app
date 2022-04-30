@@ -11,7 +11,7 @@
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             {% if request.user.is_authenticated %}
-            <h1 class="display-5 fw-bold">Welcome, {{user.username}}</h1>
+            <h1 class="display-5 fw-bold">Welcome, {{request.user.username}}</h1>
             {% else %}
             <h1 class="display-5 fw-bold">Welcome</h1>
             {% endif %}
