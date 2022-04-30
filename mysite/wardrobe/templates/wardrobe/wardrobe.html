@@ -10,7 +10,7 @@
 
     <hr>
 
-    <div class="row">
+    <div class="row align-items-center">
         <div class="col">
             <h1>Outfits</h1>
         </div>
@@ -67,7 +67,7 @@
 
     <hr>
 
-    <div class="row">
+    <div class="row align-items-center">
         <div class="col">
             <h1>Garments</h1>
         </div>
@@ -78,7 +78,6 @@
 
     <div class="pt-1">
         {% if latest_garment_list %}
-
         {% regroup latest_garment_list|dictsortreversed:"category" by category as category_list %}
         {% for category in category_list %}
         <p>{{ category.grouper }}:</p>
@@ -98,12 +97,10 @@
         </div>
         <br>
         {% endfor %}
-
         {% else %}
         <p>No garments added.</p>
         {% endif %}
     </div>
-
 </div>
 
 {% endblock %}
