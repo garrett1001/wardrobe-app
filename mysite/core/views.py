@@ -15,6 +15,14 @@ def homepage(request):
                                 .order_by('-f_count')[:3]
 	return render(request, 'core/homepage.html', {'top_profiles':top_profiles})
 
+@login_required(login_url='/login')
+def feed(request):
+	following = UserProfile.objects.filter(followers__username=request.user).values_list('user', flat=True)
+
+	outfits = Outfit.objects.filter(user__in=following).order_by('-date')
+
+	return render(request, 'core/feed.html', {'following': following, 'outfits': outfits})
+
 def register_request(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)
