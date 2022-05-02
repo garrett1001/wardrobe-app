@@ -26,6 +26,40 @@
                     </div>
                 </a>
             </div>
+            {% empty %}
+            <div class="py-4">
+                <h1 class="text-center">Your feed is empty</h1>
+                <p class="text-center">Follow some users to see their latest outfits</p>
+                <div class="h-100 p-5 bg-light border rounded-3">
+                    <h2>Top Followed Profiles</h2>
+                    {% for profile in top_profiles %}
+                    <div class="card my-3">
+                        <div class="row g-0">
+                            <div class="col-md-3 d-none d-md-block">
+                                <div class="ratio ratio-1x1">
+                                    <img src="{{ profile.avatar.url }}" class="img-fluid rounded-start" alt="avatar">
+                                </div>
+                            </div>
+                            <div class="col col-md-5">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ profile.user.username }}</h5>
+                                    <p class="card-text">Followers: {{ profile.followers.count }}</p>
+                                </div>
+                            </div>
+                            <div class="col-auto col-md-4">
+                                <div class="card-body">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <a class="btn btn-primary stretched-link"
+                                            href="{% url 'core:user_profile' profile.user.username %}">Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <a class="btn btn-outline-secondary" href="{% url 'core:top_profiles' %}">View All</a>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
