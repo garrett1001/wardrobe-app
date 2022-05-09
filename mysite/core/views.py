@@ -151,16 +151,33 @@ def remove_follower(request, username):
 
 @login_required(login_url='/login')
 def send_message(request, username):
+	receiver_user = get_object_or_404(User, username=username)
 	if request.method == 'POST':
 		form = MessageForm(request.POST)
 		if form.is_valid():
-			form.sender_user = request.user
-			form.receiver_user = username
-			form.save()
-			return redirect('core:homepage')
+			msg = form.save(commit=False)
+			msg.sender_user = request.user
+			msg.receiver_user = receiver_user
+			msg.save()
+			return redirect('core:user_profile', username)
 	else:
 		form = MessageForm()
-	return render(request, 'core/send_message_form.html', {'form': form, 'to_user': username})
+	return render(request, 'core/message_form.html', {'form': form, 'to_user': username})
+
+@login_required(login_url='/login')
+def reply_message(request, username):
+	receiver_user = get_object_or_404(User, username=username)
+	if request.method == 'POST':
+		form = MessageForm(request.POST)
+		if form.is_valid():
+			msg = form.save(commit=False)
+			msg.sender_user = request.user
+			msg.receiver_user = receiver_user
+			msg.save()
+			return redirect('core:inbox')
+	else:
+		form = MessageForm()
+	return render(request, 'core/reply_form.html', {'form': form, 'to_user': username})
 
 @login_required(login_url='/login')
 def inbox(request):

@@ -18,7 +18,7 @@
     <p>{{ msg.body }}</p>
     <br>
     <a href="{% url 'core:inbox' %}" class="btn btn-secondary">Back</a>
-    <a href="{% url 'core:send_message' msg.sender_user %}" class="btn btn-primary">Reply</a>
+    <a href="{% url 'core:reply_message' msg.sender_user.username %}" class="btn btn-primary">Reply</a>
 </div>
 
 {% endblock %}

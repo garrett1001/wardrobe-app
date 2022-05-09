@@ -40,7 +40,7 @@
             {% else %}
             <div class="row gx-2">
                 <div class="col-6">
-                    <a class="btn btn-secondary w-100" href="{% url 'core:send_message' profile.user %}">Message</a>
+                    <a class="btn btn-secondary w-100" href="{% url 'core:send_message' profile.user.username %}">Message</a>
                 </div>
                 <div class="col-6">
                     {% if is_following %}

@@ -22,4 +22,5 @@ urlpatterns = [
     path('sent/', views.sent, name='sent'),
     path('sent/<int:message_id>/', views.sent_detail, name='sent_detail'),
     path('profile/<str:username>/message/', views.send_message, name='send_message'),
+    path('inbox/<str:username>/reply/', views.reply_message, name='reply_message'),
 ]
