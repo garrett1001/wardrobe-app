@@ -16,6 +16,6 @@ class UserProfile(models.Model):
 class Message(models.Model):
    sender_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
    receiver_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
-   body = models.CharField(max_length=1000)
+   body = models.TextField(max_length=1000)
    date = models.DateTimeField(auto_now_add=True)
    is_read = models.BooleanField(default=False)

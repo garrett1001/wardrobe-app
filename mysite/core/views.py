@@ -160,7 +160,7 @@ def send_message(request, username):
 			return redirect('core:homepage')
 	else:
 		form = MessageForm()
-	return render(request, 'core/send_message_form.html', {'to_user': username})
+	return render(request, 'core/send_message_form.html', {'form': form, 'to_user': username})
 
 @login_required(login_url='/login')
 def inbox(request):
