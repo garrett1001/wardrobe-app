@@ -7,7 +7,7 @@ class GarmentForm(forms.ModelForm):
         model = Garment
         fields = ['name', 'image', 'category', 'description']
 
-class CustomChoiceField(forms.ModelChoiceField):
+class CustomMultipleChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return mark_safe("<div class='card'><img src='%s' class='card-img-top' alt='garment'><div class='card-body'><p class='card-text'>%s</p></div></div>"
                             % (obj.image.url, obj.name))
@@ -22,7 +22,7 @@ class OutfitForm(forms.ModelForm):
         model = Outfit
         fields = ['name', 'image', 'description', 'garments']
 
-    garments = CustomChoiceField(
+    garments = CustomMultipleChoiceField(
         queryset=None,
         widget=forms.CheckboxSelectMultiple,
         required=True)
