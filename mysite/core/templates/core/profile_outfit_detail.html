@@ -39,7 +39,7 @@
             {% endfor %}
 
             <div>
-                <a class="btn btn-secondary" href="{% url 'core:user_profile' outfit.user.username%}" role="button">Back</a>
+                <a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Back</a>
             </div>
 
         </div>

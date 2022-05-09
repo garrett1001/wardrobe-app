@@ -14,6 +14,7 @@ def wardrobe(request):
     context = {
         'latest_garment_list': latest_garment_list,
         'latest_outfit_list': latest_outfit_list,
+        'nbar': 'wardrobe',
     }
     
     return render(request, 'wardrobe/wardrobe.html', context)
