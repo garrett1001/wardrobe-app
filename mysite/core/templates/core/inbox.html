@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block content %}
+
+<!--Inbox-->
+<div class="container py-4">
+    <ul class="nav nav-pills mb-1">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'core:inbox' %}">Inbox</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'core:sent' %}">Sent</a>
+        </li>
+    </ul>
+
+    <div class="list-group">
+        {% for message in latest_messages %}
+        <a href="{% url 'core:inbox_detail' message.id %}"
+            class="list-group-item list-group-item-action {% if message.is_read %}list-group-item-secondary{% endif %}">
+            <div class="row">
+                <div class="col col-md-3 col-lg-2">
+                    {{ message.sender_user }}
+                </div>
+                <div class="col col-md-6 col-lg-8 text-truncate">
+                    {{ message.body }}
+                </div>
+                <div class="col col-md-3 col-lg-2 text-end">
+                    {% now "Y" as current_year %}
+                    {% if message.date|date:"Y" == current_year %}
+                    {% now "SHORT_DATE_FORMAT" as current_day %}
+                    {% if message.date|date:"SHORT_DATE_FORMAT" == current_day %}
+                    {{ message.date|date:"g:i A" }}
+                    {% else %}
+                    {{ message.date|date:"M j" }}
+                    {% endif %}
+                    {% else %}
+                    {{ message.date|date:"SHORT_DATE_FORMAT" }}
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <div class="list-group-item text-center">Inbox is empty</div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

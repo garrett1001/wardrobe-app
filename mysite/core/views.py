@@ -5,15 +5,20 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Count
-from .forms import NewUserForm, UserProfileForm
-from .models import UserProfile
+from .forms import NewUserForm, UserProfileForm, MessageForm
+from .models import UserProfile, Message
 from wardrobe.models import Garment, Outfit
 
 # Create your views here.
 def homepage(request):
 	top_profiles = UserProfile.objects.annotate(f_count=Count('followers')) \
                                 .order_by('-f_count')[:3]
-	return render(request, 'core/homepage.html', {'top_profiles':top_profiles})
+	context = {
+		'top_profiles':top_profiles,
+		'nbar': 'home',
+	}
+
+	return render(request, 'core/homepage.html', context)
 
 @login_required(login_url='/login')
 def feed(request):
@@ -26,6 +31,7 @@ def feed(request):
 	context = {
 		'outfits': outfits,
 		'top_profiles': top_profiles,
+		'nbar': 'feed',
 	}
 
 	return render(request, 'core/feed.html', context)
@@ -142,3 +148,38 @@ def remove_follower(request, username):
 		profile = get_object_or_404(UserProfile, user=user)
 		profile.followers.remove(request.user)
 	return redirect('core:user_profile', username=username)
+
+@login_required(login_url='/login')
+def send_message(request, username):
+	if request.method == 'POST':
+		form = MessageForm(request.POST)
+		if form.is_valid():
+			form.sender_user = request.user
+			form.receiver_user = username
+			form.save()
+			return redirect('core:homepage')
+	else:
+		form = MessageForm()
+	return render(request, 'core/send_message_form.html', {'to_user': username})
+
+@login_required(login_url='/login')
+def inbox(request):
+	latest_messages = Message.objects.filter(receiver_user=request.user).order_by('-date')
+	return render(request, 'core/inbox.html', {'latest_messages': latest_messages})
+
+@login_required(login_url='/login')
+def sent(request):
+	latest_sent = Message.objects.filter(sender_user=request.user).order_by('-date')
+	return render(request, 'core/sent.html', {'latest_sent': latest_sent})
+
+@login_required(login_url='/login')
+def inbox_detail(request, message_id):
+	msg = Message.objects.get(pk=message_id)
+	msg.is_read = True
+	msg.save()
+	return render(request, 'core/inbox_detail.html', {'msg': msg})
+
+@login_required(login_url='/login')
+def sent_detail(request, message_id):
+	msg = get_object_or_404(Message, pk=message_id)
+	return render(request, 'core/sent_detail.html', {'msg': msg})

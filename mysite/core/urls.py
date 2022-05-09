@@ -17,4 +17,9 @@ urlpatterns = [
     path('profile/<str:username>/unfollow', views.remove_follower, name='remove_follower'),
     path('profile/<str:username>/garment/<int:garment_id>/', views.profile_garment_detail, name='profile_garment_detail'),
     path('profile/<str:username>/outfit/<int:outfit_id>/', views.profile_outfit_detail, name='profile_outfit_detail'),
+    path('inbox/', views.inbox, name='inbox'),
+    path('inbox/<int:message_id>/', views.inbox_detail, name='inbox_detail'),
+    path('sent/', views.sent, name='sent'),
+    path('sent/<int:message_id>/', views.sent_detail, name='sent_detail'),
+    path('profile/<str:username>/message/', views.send_message, name='send_message'),
 ]

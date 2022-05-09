@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+
+{% block title %}Sent Detail{% endblock %}
+
+{% block content %}
+
+<!--Sent Detail-->
+<div class="container py-5">
+    <div class="row">
+        <div class="col">
+            <b>To: {{ msg.receiver_user }}</b>
+        </div>
+        <div class="col text-end">
+            {{ msg.date }}
+        </div>
+    </div>
+    <hr>
+    <p>{{ msg.body }}</p>
+    <br>
+    <a href="{% url 'core:sent' %}" class="btn btn-secondary">Back</a>
+</div>
+
+{% endblock %}

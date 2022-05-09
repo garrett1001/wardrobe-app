@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, Message
 
 # Create your forms here.
 class NewUserForm(UserCreationForm):
@@ -22,3 +22,8 @@ class UserProfileForm(forms.ModelForm):
 	class Meta:
 		model = UserProfile
 		fields = ['avatar', 'bio', 'private']
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['body']
