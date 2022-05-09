@@ -24,7 +24,7 @@
             <div class="row row-cols-2 row-cols-md-3 g-4">
                 {% for garment in category.list %}
                 <div class="col">
-                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
+                    <a class="text-decoration-none text-reset" href="{% url 'core:profile_garment_detail' garment.user.username garment.id %}">
                         <div class="card h-100">
                             <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
                             <div class="card-body">
@@ -38,10 +38,7 @@
             <br>
             {% endfor %}
 
-            <div>
-                <a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Back</a>
-            </div>
-
+            <!-- <a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Back</a> -->
         </div>
     </div>
 

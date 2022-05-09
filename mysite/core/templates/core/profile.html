@@ -26,30 +26,37 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-12 col-lg-9">
             <h1 class="display-6">{{ profile.user.username }}</h1>
             <p><b>{{ profile.user.get_full_name }}</b></p>
             <p>{{ profile.bio }}</p>
         </div>
         {% if request.user.is_authenticated %}
-        <div class="col-sm-2">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                {% if profile.user == request.user %}
+        <div class="col-12 col-lg-3">
+            {% if profile.user == request.user %}
+            <div class="d-grid gap-2 d-lg-flex justify-content-lg-end">
                 <a class="btn btn-outline-secondary" href="{% url 'core:edit_profile' %}">Edit Profile</a>
-                {% else %}
-                {% if is_following %}
-                <form action="{% url 'core:remove_follower' profile.user.username %}" method="POST">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-danger" type="submit">Unfollow</button>
-                </form>
-                {% else %}
-                <form action="{% url 'core:add_follower' profile.user.username %}" method="POST">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-success" type="submit">Follow</button>
-                </form>
-                {% endif %}
-                {% endif %}
             </div>
+            {% else %}
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary w-100">Message</button>
+                </div>
+                <div class="col-6">
+                    {% if is_following %}
+                    <form action="{% url 'core:remove_follower' profile.user.username %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger w-100" type="submit">Unfollow</button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'core:add_follower' profile.user.username %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success w-100" type="submit">Follow</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
         </div>
         {% endif %}
     </div>
