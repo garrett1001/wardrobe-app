@@ -13,7 +13,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <a class="btn btn-secondary" href="{% url 'core:user_profile' to_user %}" role="button">Back</a>
+        <a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Back</a>
         <button class="btn btn-primary" type="submit">Send</button>
     </form>
 </div>
