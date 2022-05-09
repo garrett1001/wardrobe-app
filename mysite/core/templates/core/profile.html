@@ -38,9 +38,9 @@
                 <a class="btn btn-outline-secondary" href="{% url 'core:edit_profile' %}">Edit Profile</a>
             </div>
             {% else %}
-            <div class="row">
+            <div class="row gx-2">
                 <div class="col-6">
-                    <button class="btn btn-secondary w-100">Message</button>
+                    <a class="btn btn-secondary w-100" href="">Message</a>
                 </div>
                 <div class="col-6">
                     {% if is_following %}
