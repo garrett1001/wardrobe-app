@@ -38,6 +38,109 @@
             <br>
             {% endfor %}
 
+            {% if outfit.tops.all %}
+            <div class="mb-4">
+                <p>Tops:</p>
+                <div class="row row-cols-2 row-cols-md-3 g-4">
+                    {% for garment in outfit.tops.all %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset" href="{% url 'core:profile_top_detail' garment.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Top">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if outfit.bottoms.all %}
+            <div class="mb-4">
+                <p>Bottoms:</p>
+                <div class="row row-cols-2 row-cols-md-3 g-4">
+                    {% for garment in outfit.bottoms.all %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset" href="{% url 'core:profile_bottom_detail' garment.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Bottom">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if outfit.outerwear.all %}
+            <div class="mb-4">
+                <p>Outerwear:</p>
+                <div class="row row-cols-2 row-cols-md-3 g-4">
+                    {% for garment in outfit.outerwear.all %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_outerwear_detail' garment.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Outerwear">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if outfit.footwear.all %}
+            <div class="mb-4">
+                <p>Footwear:</p>
+                <div class="row row-cols-2 row-cols-md-3 g-4">
+                    {% for garment in outfit.footwear.all %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_footwear_detail' garment.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Footwear">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if outfit.accessories.all %}
+            <div class="mb-4">
+                <p>Accessories:</p>
+                <div class="row row-cols-2 row-cols-md-3 g-4">
+                    {% for garment in outfit.accessories.all %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_accessory_detail' garment.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Accesory">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
             <!-- <a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}" role="button">Back</a> -->
         </div>
     </div>

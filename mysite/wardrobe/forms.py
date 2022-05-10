@@ -1,11 +1,31 @@
 from django import forms
 from django.utils.safestring import mark_safe
-from .models import Garment, Outfit
+from .models import Outfit, Top, Bottom, Outerwear, Footwear, Accessory
   
-class GarmentForm(forms.ModelForm):
+class TopForm(forms.ModelForm):
     class Meta:
-        model = Garment
-        fields = ['name', 'image', 'category', 'description']
+        model = Top
+        fields = ['name', 'image', 'description']
+
+class BottomForm(forms.ModelForm):
+    class Meta:
+        model = Bottom
+        fields = ['name', 'image', 'description']
+
+class OuterwearForm(forms.ModelForm):
+    class Meta:
+        model = Outerwear
+        fields = ['name', 'image', 'description']
+
+class FootwearForm(forms.ModelForm):
+    class Meta:
+        model = Footwear
+        fields = ['name', 'image', 'description']
+
+class AccessoryForm(forms.ModelForm):
+    class Meta:
+        model = Accessory
+        fields = ['name', 'image', 'description']
 
 class CustomMultipleChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
@@ -16,13 +36,37 @@ class OutfitForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
         super(OutfitForm, self).__init__(*args, **kwargs)
-        self.fields['garments'].queryset = Garment.objects.filter(user=self.request.user).order_by('-category')
+        self.fields['tops'].queryset = Top.objects.filter(user=self.request.user)
+        self.fields['bottoms'].queryset = Bottom.objects.filter(user=self.request.user)
+        self.fields['outerwear'].queryset = Outerwear.objects.filter(user=self.request.user)
+        self.fields['footwear'].queryset = Footwear.objects.filter(user=self.request.user)
+        self.fields['accessories'].queryset = Accessory.objects.filter(user=self.request.user)
     
     class Meta:
         model = Outfit
-        fields = ['name', 'image', 'description', 'garments']
+        fields = ['name', 'image', 'description', 'tops', 'bottoms', 'outerwear', 'footwear', 'accessories']
 
-    garments = CustomMultipleChoiceField(
+    tops = CustomMultipleChoiceField(
         queryset=None,
         widget=forms.CheckboxSelectMultiple,
         required=True)
+
+    bottoms = CustomMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+        required=True)
+
+    outerwear = CustomMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+        required=False)
+    
+    footwear = CustomMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+        required=True)
+
+    accessories = CustomMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+        required=False)

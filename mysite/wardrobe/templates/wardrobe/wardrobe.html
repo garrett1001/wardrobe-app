@@ -20,11 +20,11 @@
     </div>
 
     <div class="py-3">
-        {% if latest_outfit_list %}
+        {% if outfit_list %}
         <div class="col col-lg-6 mx-auto">
             <div id="outfitCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    {% for outfit in latest_outfit_list %}
+                    {% for outfit in outfit_list %}
                     {% if forloop.first %}
                     <div class="carousel-item active">
                         <a class="text-decoration-none text-reset" href="{% url 'wardrobe:outfit_detail' outfit.id %}">
@@ -72,31 +72,123 @@
             <h1>Garments</h1>
         </div>
         <div class="col">
-            <a class="btn btn-primary float-end" href="{% url 'wardrobe:garment_upload' %}" role="button">Add</a>
+            <div class="dropdown">
+                <button class="btn btn-primary float-end dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">Add</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="{% url 'wardrobe:top_upload' %}">Top</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wardrobe:bottom_upload' %}">Bottom</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wardrobe:outerwear_upload' %}">Outerwear</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wardrobe:footwear_upload' %}">Footwear</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wardrobe:accessory_upload' %}">Accesory</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="pt-1">
-        {% if latest_garment_list %}
-        {% regroup latest_garment_list|dictsortreversed:"category" by category as category_list %}
-        {% for category in category_list %}
-        <p>{{ category.grouper }}:</p>
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-            {% for garment in category.list %}
-            <div class="col">
-                <a class="text-decoration-none text-reset" href="{% url 'wardrobe:garment_detail' garment.id %}">
-                    <div class="card h-100">
-                        <img src="{{ garment.image.url }}" class="card-img-top" alt="Garment">
-                        <div class="card-body">
-                            <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+        {% if top_list or bottom_list or outerwear_list or footwear_list or accessory_list %}
+
+        {% if top_list %}
+        <div class="mb-4">
+            <p>Tops:</p>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for garment in top_list %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:top_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Top">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-        <br>
-        {% endfor %}
+        {% endif %}
+
+        {% if bottom_list %}
+        <div class="mb-4">
+            <p>Bottoms:</p>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for garment in bottom_list %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:bottom_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Bottom">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if outerwear_list %}
+        <div class="mb-4">
+            <p>Outerwear:</p>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for garment in outerwear_list %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:outerwear_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Outerwear">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if footwear_list %}
+        <div class="mb-4">
+            <p>Footwear:</p>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for garment in footwear_list %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:footwear_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Footwear">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if accessory_list %}
+        <div class="mb-4">
+            <p>Accessories:</p>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for garment in accessory_list %}
+                <div class="col">
+                    <a class="text-decoration-none text-reset" href="{% url 'wardrobe:accessory_detail' garment.id %}">
+                        <div class="card h-100">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Accesory">
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
         {% else %}
         <p>No garments added.</p>
         {% endif %}

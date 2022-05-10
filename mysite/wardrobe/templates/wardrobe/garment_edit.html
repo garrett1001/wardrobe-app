@@ -8,11 +8,21 @@
 
 <!--Garment_edit-->
 <div class="container py-5">
-    <h1 class="display-1">Edit Garment</h1>
+    <h1 class="display-1">Edit {{category|title}}</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <a class="btn btn-secondary" href="{% url 'wardrobe:garment_detail' garment_id %}" role="button">Back</a>
+        {% if category == 'top' %}
+        <a class="btn btn-secondary" href="{% url 'wardrobe:top_detail' garment_id %}" role="button">Back</a>
+        {% elif category == 'bottom' %}
+        <a class="btn btn-secondary" href="{% url 'wardrobe:bottom_detail' garment_id %}" role="button">Back</a>
+        {% elif category == 'outerwear' %}
+        <a class="btn btn-secondary" href="{% url 'wardrobe:outerwear_detail' garment_id %}" role="button">Back</a>
+        {% elif category == 'footwear' %}
+        <a class="btn btn-secondary" href="{% url 'wardrobe:footwear_detail' garment_id %}" role="button">Back</a>
+        {% elif category == 'accessory' %}
+        <a class="btn btn-secondary" href="{% url 'wardrobe:accessory_detail' garment_id %}" role="button">Back</a>
+        {% endif %}
         <button class="btn btn-primary" type="submit">Edit</button>
     </form>
 </div>

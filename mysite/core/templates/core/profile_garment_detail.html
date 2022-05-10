@@ -13,9 +13,8 @@
             <h1 class="display-4">{{ garment.name }}</h1>
 
             <figure class="figure">
-                <!-- <img src="{{ garment.image.url }}" class="figure-img img-fluid rounded" style="max-height:600px;"> -->
                 <img src="{{ garment.image.url }}" class="figure-img img-fluid rounded">
-                <figcaption class="figure-caption">Category: {{ garment.category }}</figcaption>
+                <figcaption class="figure-caption">Category: {{ category|title }}</figcaption>
             </figure>
 
             <p>{{ garment.description }}</p>

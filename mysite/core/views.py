@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 from .forms import NewUserForm, UserProfileForm, MessageForm
 from .models import UserProfile, Message
-from wardrobe.models import Garment, Outfit
+from wardrobe.models import Outfit, Top, Bottom, Outerwear, Footwear, Accessory
 
 # Create your views here.
 def homepage(request):
@@ -101,8 +101,12 @@ def top_profiles_list(request):
 def profile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = get_object_or_404(UserProfile, user=user)
-	latest_garment_list = Garment.objects.select_related().filter(user=user).order_by('-date')
-	latest_outfit_list = Outfit.objects.select_related().filter(user=user).order_by('-date')
+	top_list = Top.objects.select_related().filter(user=user).order_by('-date')
+	bottom_list = Bottom.objects.select_related().filter(user=user).order_by('-date')
+	outerwear_list = Outerwear.objects.select_related().filter(user=user).order_by('-date')
+	footwear_list = Footwear.objects.select_related().filter(user=user).order_by('-date')
+	accessory_list = Accessory.objects.select_related().filter(user=user).order_by('-date')
+	outfit_list = Outfit.objects.select_related().filter(user=user).order_by('-date')
 	
 	followers = profile.followers.all()
 
@@ -115,19 +119,44 @@ def profile(request, username):
 
 	number_of_followers = len(followers)
 
+	number_of_garments = len(top_list) + len(bottom_list) + len(outerwear_list) + len(footwear_list) + len(accessory_list)
+
 	context = {
 		'profile': profile,
-		'latest_garment_list': latest_garment_list,
-		'latest_outfit_list': latest_outfit_list,
+		'top_list': top_list,
+        'bottom_list': bottom_list,
+        'outerwear_list': outerwear_list, 
+        'footwear_list': footwear_list, 
+        'accessory_list': accessory_list,
+		'outfit_list': outfit_list,
 		'number_of_followers': number_of_followers,
+		'number_of_garments': number_of_garments,
 		'is_following': is_following,
 	}
 
 	return render(request, 'core/profile.html', context)
 
-def profile_garment_detail(request, username, garment_id):
-    garment = get_object_or_404(Garment, pk=garment_id)
-    return render(request, 'core/profile_garment_detail.html', {'garment': garment})
+def profile_top_detail(request, username, top_id):
+    top = get_object_or_404(Top, pk=top_id)
+    return render(request, 'core/profile_garment_detail.html', {'garment': top, 'category': 'top'})
+
+def profile_bottom_detail(request, username, bottom_id):
+    bottom = get_object_or_404(Bottom, pk=bottom_id)
+    return render(request, 'core/profile_garment_detail.html', {'garment': bottom, 'category': 'bottom'})
+
+def profile_outerwear_detail(request, username, outerwear_id):
+    outerwear = get_object_or_404(Outerwear, pk=outerwear_id)
+    return render(request, 'core/profile_outerwear_detail.html', {'garment': outerwear, 'category': 'outerwear'})
+
+def profile_footwear_detail(request, username, footwear_id):
+    footwear = get_object_or_404(Footwear, pk=footwear_id)
+    return render(request, 'core/profile_garment_detail.html', {'garment': footwear, 'category': 'footwear'})
+
+def profile_accessory_detail(request, username, accessory_id):
+    accessory = get_object_or_404(accessory, pk=accessory_id)
+    return render(request, 'core/profile_garment_detail.html', {'garment': accessory, 'category': 'accessory'})
+
+# Outfit
 
 def profile_outfit_detail(request, username, outfit_id):
     outfit = get_object_or_404(Outfit, pk=outfit_id)

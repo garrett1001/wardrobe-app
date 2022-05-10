@@ -22,31 +22,138 @@
         </div>
 
         <div class="col-12">
-            <label for="{{ form.garments.id_for_label }}" class="form-label">Garments*</label>
-            {% if form.garments.errors %}
-            <div class="input-group text-danger mb-3">
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-                    {% for garment in form.garments %}
+            <div id="div_id_{{ form.tops.html_name }}" class="mb-3">
+                <label class="form-label requiredFeild">
+                    {{form.tops.label}}<span class="asteriskField">*</span>
+                </label>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.tops.errors %}text-danger{% endif %}">
+                    {% for pk, choice in form.tops.field.widget.choices%}
                     <div class="col">
-                        {{ garment }}
+                        <div class="form-check">
+                            <input type="{{form.tops.field.widget.input_type}}" class="form-check-input" name="{{form.tops.html_name}}" value="{{pk}}" id="id_{{form.tops.name}}_{{forloop.counter0}}" {% if pk in form.tops.value %}checked{% endif %}>
+                            <label for="id_{{form.tops.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
-                <div class="mt-1">
-                    This field is required.
+                {% if form.tops.errors %}
+                <div class="container">
+                    {% for error in form.tops.errors %}
+                    <p id="error_{{ forloop.counter }}_id_{{ form.tops.html_name }}" class="form-text text-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </p>
+                    {% endfor %}
                 </div>
+                {% endif %}
             </div>
-            {% else %}
-            <div class="input-group mb-3">
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-                    {% for garment in form.garments %}
+        </div>
+
+        <div class="col-12">
+            <div id="div_id_{{ form.bottoms.html_name }}" class="mb-3">
+                <label class="form-label requiredFeild">
+                    {{form.bottoms.label}}<span class="asteriskField">*</span>
+                </label>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.bottoms.errors %}text-danger{% endif %}">
+                    {% for pk, choice in form.bottoms.field.widget.choices%}
                     <div class="col">
-                        {{ garment }}
+                        <div class="form-check">
+                            <input type="{{form.bottoms.field.widget.input_type}}" class="form-check-input" name="{{form.bottoms.html_name}}" value="{{pk}}" id="id_{{form.bottoms.name}}_{{forloop.counter0}}" {% if pk in form.bottoms.value %}checked{% endif %}>
+                            <label for="id_{{form.bottoms.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
+                {% if form.bottoms.errors %}
+                <div class="container">
+                    {% for error in form.bottoms.errors %}
+                    <p id="error_{{ forloop.counter }}_id_{{ form.bottoms.html_name }}" class="form-text text-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
+        </div>
+
+        <div class="col-12">
+            <div id="div_id_{{ form.outerwear.html_name }}" class="mb-3">
+                <label class="form-label">
+                    {{form.outerwear.label}}
+                </label>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.outerwear.errors %}text-danger{% endif %}">
+                    {% for pk, choice in form.outerwear.field.widget.choices%}
+                    <div class="col">
+                        <div class="form-check">
+                            <input type="{{form.outerwear.field.widget.input_type}}" class="form-check-input" name="{{form.outerwear.html_name}}" value="{{pk}}" id="id_{{form.outerwear.name}}_{{forloop.counter0}}" {% if pk in form.outerwear.value %}checked{% endif %}>
+                            <label for="id_{{form.outerwear.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if form.outerwear.errors %}
+                <div class="container">
+                    {% for error in form.outerwear.errors %}
+                    <p id="error_{{ forloop.counter }}_id_{{ form.outerwear.html_name }}" class="form-text text-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div id="div_id_{{ form.footwear.html_name }}" class="mb-3">
+                <label class="form-label requiredFeild">
+                    {{form.footwear.label}}<span class="asteriskField">*</span>
+                </label>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.footwear.errors %}text-danger{% endif %}">
+                    {% for pk, choice in form.footwear.field.widget.choices%}
+                    <div class="col">
+                        <div class="form-check">
+                            <input type="{{form.footwear.field.widget.input_type}}" class="form-check-input" name="{{form.footwear.html_name}}" value="{{pk}}" id="id_{{form.footwear.name}}_{{forloop.counter0}}" {% if pk in form.footwear.value %}checked{% endif %}>
+                            <label for="id_{{form.footwear.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if form.footwear.errors %}
+                <div class="container">
+                    {% for error in form.footwear.errors %}
+                    <p id="error_{{ forloop.counter }}_id_{{ form.footwear.html_name }}" class="form-text text-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div id="div_id_{{ form.accessories.html_name }}" class="mb-3">
+                <label class="form-label">
+                    {{form.accessories.label}}
+                </label>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.accessories.errors %}text-danger{% endif %}">
+                    {% for pk, choice in form.accessories.field.widget.choices%}
+                    <div class="col">
+                        <div class="form-check">
+                            <input type="{{form.accessories.field.widget.input_type}}" class="form-check-input" name="{{form.accessories.html_name}}" value="{{pk}}" id="id_{{form.accessories.name}}_{{forloop.counter0}}" {% if pk in form.accessories.value %}checked{% endif %}>
+                            <label for="id_{{form.accessories.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if form.accessories.errors %}
+                <div class="container">
+                    {% for error in form.accessories.errors %}
+                    <p id="error_{{ forloop.counter }}_id_{{ form.accessories.html_name }}" class="form-text text-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
         </div>
 
         <div class="col-12">

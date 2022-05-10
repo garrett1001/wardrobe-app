@@ -6,37 +6,42 @@
 
 <!--Garment_detail-->
 <div class="container py-5">
-
     <div class="row">
         <div class="col-lg-6 col-md-10 mx-auto">
 
             <h1 class="display-4">{{ garment.name }}</h1>
 
             <figure class="figure">
-                <!-- <img src="{{ garment.image.url }}" class="figure-img img-fluid rounded" style="max-height:600px;"> -->
                 <img src="{{ garment.image.url }}" class="figure-img img-fluid rounded">
-                <figcaption class="figure-caption">Category: {{ garment.category }}</figcaption>
+                <figcaption class="figure-caption">Category: {{ category|title }}</figcaption>
             </figure>
 
             <p>{{ garment.description }}</p>
 
             <div>
-                <!-- Back button needs to be fixed -->
                 <a class="btn btn-secondary" href="{% url 'wardrobe:wardrobe' %}" role="button">Back</a>
-                <a class="btn btn-primary" href="{% url 'wardrobe:garment_edit' garment.id %}" role="button">Edit</a>
+                {% if category == 'top' %}
+                <a class="btn btn-primary" href="{% url 'wardrobe:top_edit' garment.id %}" role="button">Edit</a>
+                {% elif category == 'bottom' %}
+                <a class="btn btn-primary" href="{% url 'wardrobe:bottom_edit' garment.id %}" role="button">Edit</a>
+                {% elif category == 'outerwear' %}
+                <a class="btn btn-primary" href="{% url 'wardrobe:outerwear_edit' garment.id %}" role="button">Edit</a>
+                {% elif category == 'footwear' %}
+                <a class="btn btn-primary" href="{% url 'wardrobe:footwear_edit' garment.id %}" role="button">Edit</a>
+                {% elif category == 'accessory' %}
+                <a class="btn btn-primary" href="{% url 'wardrobe:accessory_edit' garment.id %}" role="button">Edit</a>
+                {% endif %}
 
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#garmentDeleteModal">
-                    Delete
-                </button>
+                    data-bs-target="#garmentDeleteModal">Delete</button>
                 <!-- Modal -->
                 <div class="modal fade" id="garmentDeleteModal" tabindex="-1" aria-labelledby="garmentDeleteModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="garmentDeleteModalLabel">Delete Garment</h5>
+                                <h5 class="modal-title" id="garmentDeleteModalLabel">Delete {{ category|title }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -45,10 +50,32 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <form action="{% url 'wardrobe:garment_delete' garment_id=garment.id %}" method="POST">
+                                {% if category == 'top' %}
+                                <form action="{% url 'wardrobe:top_delete' garment.id %}" method="POST">
                                     {% csrf_token %}
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
+                                {% elif category == 'bottom' %}
+                                <form action="{% url 'wardrobe:bottom_delete' garment.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                                {% elif category == 'outerwear' %}
+                                <form action="{% url 'wardrobe:outerwear_delete' garment.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                                {% elif category == 'footwear' %}
+                                <form action="{% url 'wardrobe:footwear_delete' garment.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                                {% elif category == 'accessory' %}
+                                <form action="{% url 'wardrobe:accessory_delete' garment.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -57,7 +84,6 @@
 
         </div>
     </div>
-
 </div>
 
 {% endblock %}
