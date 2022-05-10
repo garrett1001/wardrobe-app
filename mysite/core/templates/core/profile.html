@@ -64,166 +64,178 @@
     </div>
 
     <hr>
+    {% if not profile.private or request.user == profile.user or both_follow %}
+    <div>
+        <h1>Outfits</h1>
+        <div class="py-3">
+            {% if outfit_list %}
+            <div class="col col-lg-6 mx-auto">
+                <div id="outfitCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for outfit in outfit_list %}
+                        {% if forloop.first %}
+                        <div class="carousel-item active">
+                            <a class="text-decoration-none text-reset"
+                                href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
+                                <img src="{{ outfit.image.url }}" class="d-block w-100" alt="Outfit">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{ outfit.name }}</h5>
+                                    <p>{{ outfit.description }}</p>
+                                </div>
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="carousel-item">
+                            <a class="text-decoration-none text-reset"
+                                href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
+                                <img src="{{ outfit.image.url }}" class="d-block w-100" alt="Outfit">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{ outfit.name }}</h5>
+                                    <p>{{ outfit.description }}</p>
+                                </div>
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#outfitCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#outfitCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            {% else %}
+            <p>No outfits created.</p>
+            {% endif %}
+        </div>
 
-    <h1>Outfits</h1>
-    <div class="py-3">
-        {% if outfit_list %}
-        <div class="col col-lg-6 mx-auto">
-            <div id="outfitCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    {% for outfit in outfit_list %}
-                    {% if forloop.first %}
-                    <div class="carousel-item active">
+        <hr>
+
+        <h1>Garments</h1>
+        <div class="pt-1">
+            {% if top_list or bottom_list or outerwear_list or footwear_list or accessory_list %}
+
+            {% if top_list %}
+            <div class="mb-4">
+                <p>Tops:</p>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    {% for garment in top_list %}
+                    <div class="col">
                         <a class="text-decoration-none text-reset"
-                            href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
-                            <img src="{{ outfit.image.url }}" class="d-block w-100" alt="Outfit">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>{{ outfit.name }}</h5>
-                                <p>{{ outfit.description }}</p>
+                            href="{% url 'core:profile_top_detail' profile.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Top">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
                             </div>
                         </a>
                     </div>
-                    {% else %}
-                    <div class="carousel-item">
-                        <a class="text-decoration-none text-reset"
-                            href="{% url 'core:profile_outfit_detail' profile.user.username outfit.id %}">
-                            <img src="{{ outfit.image.url }}" class="d-block w-100" alt="Outfit">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>{{ outfit.name }}</h5>
-                                <p>{{ outfit.description }}</p>
-                            </div>
-                        </a>
-                    </div>
-                    {% endif %}
                     {% endfor %}
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#outfitCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#outfitCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
+            {% endif %}
+
+            {% if bottom_list %}
+            <div class="mb-4">
+                <p>Bottoms:</p>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    {% for garment in bottom_list %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_bottom_detail' profile.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Bottom">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if outerwear_list %}
+            <div class="mb-4">
+                <p>Outerwear:</p>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    {% for garment in outerwear_list %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_outerwear_detail' profile.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Outerwear">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if footwear_list %}
+            <div class="mb-4">
+                <p>Footwear:</p>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    {% for garment in footwear_list %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_footwear_detail' profile.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Footwear">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if accessory_list %}
+            <div class="mb-4">
+                <p>Accessories:</p>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    {% for garment in accessory_list %}
+                    <div class="col">
+                        <a class="text-decoration-none text-reset"
+                            href="{% url 'core:profile_accessory_detail' profile.user.username garment.id %}">
+                            <div class="card h-100">
+                                <img src="{{ garment.image.url }}" class="card-img-top" alt="Accessory">
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">{{ garment.name }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% else %}
+            <p class="mt-3">No garments added.</p>
+            {% endif %}
         </div>
-        {% else %}
-        <p>No outfits created.</p>
-        {% endif %}
     </div>
-
-    <hr>
-
-    <h1>Garments</h1>
-    <div class="pt-1">
-        {% if top_list or bottom_list or outerwear_list or footwear_list or accessory_list %}
-
-        {% if top_list %}
-        <div class="mb-4">
-            <p>Tops:</p>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                {% for garment in top_list %}
-                <div class="col">
-                    <a class="text-decoration-none text-reset" href="{% url 'core:profile_top_detail' profile.user.username garment.id %}">
-                        <div class="card h-100">
-                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Top">
-                            <div class="card-body">
-                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if bottom_list %}
-        <div class="mb-4">
-            <p>Bottoms:</p>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                {% for garment in bottom_list %}
-                <div class="col">
-                    <a class="text-decoration-none text-reset" href="{% url 'core:profile_bottom_detail' profile.user.username garment.id %}">
-                        <div class="card h-100">
-                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Bottom">
-                            <div class="card-body">
-                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if outerwear_list %}
-        <div class="mb-4">
-            <p>Outerwear:</p>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                {% for garment in outerwear_list %}
-                <div class="col">
-                    <a class="text-decoration-none text-reset" href="{% url 'core:profile_outerwear_detail' profile.user.username garment.id %}">
-                        <div class="card h-100">
-                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Outerwear">
-                            <div class="card-body">
-                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if footwear_list %}
-        <div class="mb-4">
-            <p>Footwear:</p>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                {% for garment in footwear_list %}
-                <div class="col">
-                    <a class="text-decoration-none text-reset" href="{% url 'core:profile_footwear_detail' profile.user.username garment.id %}">
-                        <div class="card h-100">
-                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Footwear">
-                            <div class="card-body">
-                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if accessory_list %}
-        <div class="mb-4">
-            <p>Accessories:</p>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                {% for garment in accessory_list %}
-                <div class="col">
-                    <a class="text-decoration-none text-reset" href="{% url 'core:profile_accessory_detail' profile.user.username garment.id %}">
-                        <div class="card h-100">
-                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Accessory">
-                            <div class="card-body">
-                                <h6 class="card-title text-truncate">{{ garment.name }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% else %}
-        <p class="mt-3">No garments added.</p>
-        {% endif %}
+    {% else %}
+    <div class="pt-3">
+        <p>This profile is private. </p>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

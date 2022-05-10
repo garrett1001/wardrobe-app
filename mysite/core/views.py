@@ -88,7 +88,7 @@ def edit_profile(request):
 def search_results(request):
 	if request.method == "POST":
 		searched = request.POST['searched']
-		profiles = UserProfile.objects.filter(user__username__contains=searched, private=False)
+		profiles = UserProfile.objects.filter(user__username__contains=searched)
 		return render(request, 'core/search_results.html', {'searched':searched, 'profiles':profiles})
 	else:
 		return render(request, 'core/search_results.html', {})
@@ -111,11 +111,17 @@ def profile(request, username):
 	followers = profile.followers.all()
 
 	is_following = False
+	if request.user in followers:
+		is_following = True
+	
+	request_user_profile = get_object_or_404(UserProfile, user=request.user)
+	request_user_followers = request_user_profile.followers.all()
 
-	for follower in followers:
-		if follower == request.user:
-			is_following = True
-			break
+	followed_back = False
+	if user in request_user_followers:
+		followed_back = True
+
+	both_follow = is_following and followed_back
 
 	number_of_followers = len(followers)
 
@@ -132,6 +138,7 @@ def profile(request, username):
 		'number_of_followers': number_of_followers,
 		'number_of_garments': number_of_garments,
 		'is_following': is_following,
+		'both_follow': both_follow,
 	}
 
 	return render(request, 'core/profile.html', context)
