@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Top(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='garments/tops')
+    image = models.ImageField(upload_to='uploads/garments/tops')
     description = models.TextField(max_length=300, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -14,7 +14,7 @@ class Top(models.Model):
 
 class Bottom(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='garments/bottoms')
+    image = models.ImageField(upload_to='uploads/garments/bottoms')
     description = models.TextField(max_length=300, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -24,7 +24,7 @@ class Bottom(models.Model):
 
 class Outerwear(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='garments/outerwear')
+    image = models.ImageField(upload_to='uploads/garments/outerwear')
     description = models.TextField(max_length=300, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -34,7 +34,7 @@ class Outerwear(models.Model):
 
 class Footwear(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='garments/footwear')
+    image = models.ImageField(upload_to='uploads/garments/footwear')
     description = models.TextField(max_length=300, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -44,7 +44,7 @@ class Footwear(models.Model):
 
 class Accessory(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='garments/accessories')
+    image = models.ImageField(upload_to='uploads/garments/accessories')
     description = models.TextField(max_length=300, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -54,7 +54,7 @@ class Accessory(models.Model):
 
 class Outfit(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='outfits')
+    image = models.ImageField(upload_to='uploads/outfits')
     description = models.TextField(max_length=300, blank=True)
     tops = models.ManyToManyField(Top, blank=True)
     bottoms = models.ManyToManyField(Bottom)
