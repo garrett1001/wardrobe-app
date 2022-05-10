@@ -49,7 +49,7 @@ class OutfitForm(forms.ModelForm):
     tops = CustomMultipleChoiceField(
         queryset=None,
         widget=forms.CheckboxSelectMultiple,
-        required=True)
+        required=False)
 
     bottoms = CustomMultipleChoiceField(
         queryset=None,

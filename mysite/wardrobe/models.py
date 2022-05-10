@@ -56,7 +56,7 @@ class Outfit(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='outfits')
     description = models.TextField(max_length=300, blank=True)
-    tops = models.ManyToManyField(Top)
+    tops = models.ManyToManyField(Top, blank=True)
     bottoms = models.ManyToManyField(Bottom)
     outerwear = models.ManyToManyField(Outerwear, blank=True)
     footwear = models.ManyToManyField(Footwear)
