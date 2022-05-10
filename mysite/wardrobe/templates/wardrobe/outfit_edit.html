@@ -26,11 +26,11 @@
                 <label class="form-label requiredFeild">
                     {{form.tops.label}}<span class="asteriskField">*</span>
                 </label>
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.tops.errors %}text-danger{% endif %}">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
                     {% for pk, choice in form.tops.field.widget.choices%}
                     <div class="col">
                         <div class="form-check">
-                            <input type="{{form.tops.field.widget.input_type}}" class="form-check-input" name="{{form.tops.html_name}}" value="{{pk}}" id="id_{{form.tops.name}}_{{forloop.counter0}}" {% if pk in form.tops.value %}checked{% endif %}>
+                            <input type="{{form.tops.field.widget.input_type}}" class="form-check-input {% if form.tops.errors %}is-invalid{% endif %}" name="{{form.tops.html_name}}" value="{{pk}}" id="id_{{form.tops.name}}_{{forloop.counter0}}" {% if pk in form.tops.value or pk|stringformat:'s' in form.tops.value %}checked{% endif %}>
                             <label for="id_{{form.tops.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
                         </div>
                     </div>
@@ -53,11 +53,11 @@
                 <label class="form-label requiredFeild">
                     {{form.bottoms.label}}<span class="asteriskField">*</span>
                 </label>
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.bottoms.errors %}text-danger{% endif %}">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
                     {% for pk, choice in form.bottoms.field.widget.choices%}
                     <div class="col">
                         <div class="form-check">
-                            <input type="{{form.bottoms.field.widget.input_type}}" class="form-check-input" name="{{form.bottoms.html_name}}" value="{{pk}}" id="id_{{form.bottoms.name}}_{{forloop.counter0}}" {% if pk in form.bottoms.value %}checked{% endif %}>
+                            <input type="{{form.bottoms.field.widget.input_type}}" class="form-check-input {% if form.bottoms.errors %}is-invalid{% endif %}" name="{{form.bottoms.html_name}}" value="{{pk}}" id="id_{{form.bottoms.name}}_{{forloop.counter0}}" {% if pk in form.bottoms.value or pk|stringformat:'s' in form.bottoms.value %}checked{% endif %}>
                             <label for="id_{{form.bottoms.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
                         </div>
                     </div>
@@ -80,11 +80,11 @@
                 <label class="form-label">
                     {{form.outerwear.label}}
                 </label>
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.outerwear.errors %}text-danger{% endif %}">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
                     {% for pk, choice in form.outerwear.field.widget.choices%}
                     <div class="col">
                         <div class="form-check">
-                            <input type="{{form.outerwear.field.widget.input_type}}" class="form-check-input" name="{{form.outerwear.html_name}}" value="{{pk}}" id="id_{{form.outerwear.name}}_{{forloop.counter0}}" {% if pk in form.outerwear.value %}checked{% endif %}>
+                            <input type="{{form.outerwear.field.widget.input_type}}" class="form-check-input {% if form.outerwear.errors %}is-invalid{% endif %}" name="{{form.outerwear.html_name}}" value="{{pk}}" id="id_{{form.outerwear.name}}_{{forloop.counter0}}" {% if pk in form.outerwear.value or pk|stringformat:'s' in form.outerwear.value %}checked{% endif %}>
                             <label for="id_{{form.outerwear.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
                         </div>
                     </div>
@@ -107,11 +107,11 @@
                 <label class="form-label requiredFeild">
                     {{form.footwear.label}}<span class="asteriskField">*</span>
                 </label>
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.footwear.errors %}text-danger{% endif %}">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
                     {% for pk, choice in form.footwear.field.widget.choices%}
                     <div class="col">
                         <div class="form-check">
-                            <input type="{{form.footwear.field.widget.input_type}}" class="form-check-input" name="{{form.footwear.html_name}}" value="{{pk}}" id="id_{{form.footwear.name}}_{{forloop.counter0}}" {% if pk in form.footwear.value %}checked{% endif %}>
+                            <input type="{{form.footwear.field.widget.input_type}}" class="form-check-input {% if form.footwear.errors %}is-invalid{% endif %}" name="{{form.footwear.html_name}}" value="{{pk}}" id="id_{{form.footwear.name}}_{{forloop.counter0}}" {% if pk in form.footwear.value or pk|stringformat:'s' in form.footwear.value %}checked{% endif %}>
                             <label for="id_{{form.footwear.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
                         </div>
                     </div>
@@ -134,11 +134,11 @@
                 <label class="form-label">
                     {{form.accessories.label}}
                 </label>
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 {% if form.accessories.errors %}text-danger{% endif %}">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
                     {% for pk, choice in form.accessories.field.widget.choices%}
                     <div class="col">
                         <div class="form-check">
-                            <input type="{{form.accessories.field.widget.input_type}}" class="form-check-input" name="{{form.accessories.html_name}}" value="{{pk}}" id="id_{{form.accessories.name}}_{{forloop.counter0}}" {% if pk in form.accessories.value %}checked{% endif %}>
+                            <input type="{{form.accessories.field.widget.input_type}}" class="form-check-input {% if form.accessories.errors %}is-invalid{% endif %}" name="{{form.accessories.html_name}}" value="{{pk}}" id="id_{{form.accessories.name}}_{{forloop.counter0}}" {% if pk in form.accessories.value or pk|stringformat:'s' in form.accessories.value %}checked{% endif %}>
                             <label for="id_{{form.accessories.name}}_{{forloop.counter0}}" class="form-check-label">{{ choice }}</label>
                         </div>
                     </div>
