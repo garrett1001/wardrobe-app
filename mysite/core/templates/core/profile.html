@@ -208,7 +208,7 @@
                 <div class="col">
                     <a class="text-decoration-none text-reset" href="{% url 'core:profile_accessory_detail' profile.user.username garment.id %}">
                         <div class="card h-100">
-                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Accesory">
+                            <img src="{{ garment.image.url }}" class="card-img-top" alt="Accessory">
                             <div class="card-body">
                                 <h6 class="card-title text-truncate">{{ garment.name }}</h6>
                             </div>
@@ -221,7 +221,7 @@
         {% endif %}
 
         {% else %}
-        <p>No garments added.</p>
+        <p class="mt-3">No garments added.</p>
         {% endif %}
     </div>
 </div>
