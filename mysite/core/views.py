@@ -13,10 +13,19 @@ from wardrobe.models import Outfit, Top, Bottom, Outerwear, Footwear, Accessory
 def homepage(request):
 	top_profiles = UserProfile.objects.annotate(f_count=Count('followers')) \
                                 .order_by('-f_count')[:3]
-	context = {
-		'top_profiles':top_profiles,
-		'nbar': 'home',
-	}
+
+	if request.user.is_authenticated:
+		unread_message_count = Message.objects.filter(receiver_user=request.user, is_read=False).count()
+		context = {
+			'top_profiles':top_profiles,
+			'unread_message_count': unread_message_count,
+			'nbar': 'home',
+		}
+	else:
+		context = {
+			'top_profiles':top_profiles,
+			'nbar': 'home',
+		}
 
 	return render(request, 'core/homepage.html', context)
 

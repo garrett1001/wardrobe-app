@@ -24,11 +24,21 @@
     <div class="row align-items-md-stretch">
         <div class="col-md-6 mb-2 mb-md-0">
             <div class="h-100 p-5 text-white bg-dark rounded-3">
-                <h2>Set up your profile</h2>
-                <p>Finish setting up your profile by adding a profile picture and bio in your profile settings. Your
-                    profile is public by default, however, if you would like to use the site to manage your wardrobe
-                    without sharing your profile with others you can make it private.</p>
-                <a class="btn btn-outline-light" href="{% url 'core:edit_profile' %}">Profile Settings</a>
+                <div class="{% if request.user.is_authenticated %}pb-2{% endif %}">
+                    <h2>Set up your profile</h2>
+                    <p>Finish setting up your profile by adding a profile picture and bio in your profile settings. Your
+                        profile is public by default, however, if you would like to use the site to manage your wardrobe
+                        without sharing your profile with others you can make it private.</p>
+                    <a class="btn btn-outline-light" href="{% url 'core:edit_profile' %}">Profile Settings</a>
+                </div>
+                {% if request.user.is_authenticated %}
+                <hr class="my-lg-5">
+                <div>
+                    <h2>Messages</h2>
+                    <p>Unread messages in inbox: <b>{{ unread_message_count }}</b></p>
+                    <a class="btn btn-outline-light" href="{% url 'core:inbox' %}">Inbox</a>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="col-md-6">
