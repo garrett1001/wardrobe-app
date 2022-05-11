@@ -123,12 +123,12 @@ def profile(request, username):
 	if request.user in followers:
 		is_following = True
 	
-	request_user_profile = get_object_or_404(UserProfile, user=request.user)
-	request_user_followers = request_user_profile.followers.all()
-
 	followed_back = False
-	if user in request_user_followers:
-		followed_back = True
+	if request.user.is_authenticated:
+		request_user_profile = get_object_or_404(UserProfile, user=request.user)
+		request_user_followers = request_user_profile.followers.all()
+		if user in request_user_followers:
+			followed_back = True
 
 	both_follow = is_following and followed_back
 
@@ -162,14 +162,14 @@ def profile_bottom_detail(request, username, bottom_id):
 
 def profile_outerwear_detail(request, username, outerwear_id):
     outerwear = get_object_or_404(Outerwear, pk=outerwear_id)
-    return render(request, 'core/profile_outerwear_detail.html', {'garment': outerwear, 'category': 'outerwear'})
+    return render(request, 'core/profile_garment_detail.html', {'garment': outerwear, 'category': 'outerwear'})
 
 def profile_footwear_detail(request, username, footwear_id):
     footwear = get_object_or_404(Footwear, pk=footwear_id)
     return render(request, 'core/profile_garment_detail.html', {'garment': footwear, 'category': 'footwear'})
 
 def profile_accessory_detail(request, username, accessory_id):
-    accessory = get_object_or_404(accessory, pk=accessory_id)
+    accessory = get_object_or_404(Accessory, pk=accessory_id)
     return render(request, 'core/profile_garment_detail.html', {'garment': accessory, 'category': 'accessory'})
 
 # Outfit
