@@ -54,7 +54,7 @@ class OutfitForm(forms.ModelForm):
     bottoms = CustomMultipleChoiceField(
         queryset=None,
         widget=forms.CheckboxSelectMultiple,
-        required=True)
+        required=False)
 
     outerwear = CustomMultipleChoiceField(
         queryset=None,
@@ -64,7 +64,7 @@ class OutfitForm(forms.ModelForm):
     footwear = CustomMultipleChoiceField(
         queryset=None,
         widget=forms.CheckboxSelectMultiple,
-        required=True)
+        required=False)
 
     accessories = CustomMultipleChoiceField(
         queryset=None,
